@@ -1,0 +1,60 @@
+<ion-view view-title="商品引換画面" ng-controller="CouponUseCtrl">
+  <ion-content class="bg-coupon al-center" has-bouncing="false">
+    <!-- クーポン一覧 -->
+        <div class="w-90p pt-20">
+            <div class="h-30p border-rt20 coupon-header">
+                <div class="mt-20p">
+                    <h2 class="color-white font-bold font-size30">{{coupon.coupon_name}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="w-90p bg-white border-rb20 pos-rel mb-20">
+            <p class="pt-10 al-left ml-50">発行日　：{{coupon.issue_date}}</p>
+            <p class="font-bold color-ble al-left ml-50">有効期限：{{coupon.expire_date}}</p>
+            <p class="font-bold color-red al-left ml-50">発行数：{{coupon.quantity}}</p>
+            <button class="btn-color04 mt-10 mb-10 al-center" ng-click="popCouponDescription(coupon)">交換を行う</button>
+        </div>
+  </ion-content>
+    <!--引換確認ポップアップ-->
+		<div id="coupon-pop-frame" class="pop-back">
+			<div class="pop w-90p">
+				<div class="pop-close">
+                    <p>引換確認</p>
+					<input class="pop-close-btn" type="button" ng-click="popDescriptionClose()">
+				</div>
+
+                <div class="w-100p h-90p ofy-scroll">
+
+                    <div class="mt-5 al-left mx-0 ml-10">
+                    <p class="al-left mx-0">この画面を店舗の方に提示し、引換を行ってください。<br>誤って「使用済み」にしてしまった場合、引換できなくなります。</p>
+                    </div>
+                    <!-- 活動区分 -->
+                    <div class="mt-10 al-left mx-0 ml-10">
+                    <p class="al-left mx-0">活動奨励品</p>
+                    <input type="text" class="w-90p mx-0" value="{{coupon.coupon_name}}" readonly/>
+                    </div>
+                    <!-- 実施場所 -->
+                    <div class="mt-10 al-left mx-0 ml-10">
+                    <p class="al-left mx-0">枚数</p>
+                    <input type="text" class="w-90p mx-0" value="{{coupon.quantity}}" readonly/>
+                    </div>
+                    <!-- 利用店舗 -->
+                    <div class="mt-10 al-left mx-0 ml-10">
+                    <p class="al-left mx-0">利用店舗</p>
+                    <select id="shop_select" class="item w-90p mx-0">
+                        <option value="{{shop.shop_id}}" selected>{{shop.shop_name}}</option>
+                        <!-- <input type="text" class="w-90p mx-0" value="{{shop_id}}" readonly/> -->
+                    </select>
+                    </div>
+
+                    <!-- <p class="color-red mt-10">※店舗の方が押してください</p> -->
+
+                    <!-- 中止ボタン・引換ボタン -->
+                    <div class="disp-inflex">
+                        <button class=" btn-color01 w-150 h-50 mb-10 mx-0" ng-click="popDescriptionClose();">中止</button>
+                        <button class=" btn-color03 w-150 h-50 ml-10 mb-10 mx-0" ng-click="couponExchange(user_id,coupon);">引換する</button>
+                    </div>
+                </div>
+			</div>
+		</div>
+</ion-view>

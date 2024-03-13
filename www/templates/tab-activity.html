@@ -1,0 +1,242 @@
+<ion-view view-title="活動内容" ng-controller="ActivityCtrl">
+  <ion-content  class="body_color02 al-left" has-bouncing="false">
+
+      <!--タグ検索-->
+      <div class="bar item-input-inset bar-light h-50 ">
+        <label class="item-input-wrapper dll-frame">
+          <i class="icon ion-search placeholder-icon"></i>
+            <select id="sel_tag_activity" class="ddl-search color-black">
+              <option value="0">全件表示</option>
+              <option ng-repeat="groupTag in groupTags" value="{{groupTag.group_id}}">{{groupTag.name}}</option>
+              <option value="9">町主催の活動</option>
+            </select>
+        </label>
+      </div>
+
+    <!-- 活動数 -->
+    <div ng-show="datas.length > 0" class="item item-divider">活動予定が{{data_count}}件あります</div>
+		<!--活動一覧-->
+		<div id="kojin">
+			<ion-list id="itemlist" class="al-left">
+				<ion-item class="item" ng-repeat="data in datas" 
+				 ng-click="popActivityDescription({{data}})" class="pr-5" ng-class="{bg_end_activity:{{data.stamp_date}} != 0}">
+          <!-- タグ -->
+          <p>
+          <label class="news-tag mr-5 mt-5 mb-20" ng-style="{'background-color' : '{{data.activity_kbn_color}}'}" ng-bind="data.activity_kbn_nm"></label>
+          </p>
+          <!--日付-->
+          <div>
+            <span class="font-size20">活動日:{{data.start_date}}</span>
+          </div>
+          <!-- 団体名 -->
+          <div ng-show="data.activity_kbn < 90">
+            <span class="font-size20">団体名:{{data.group_name}}</span>
+          </div>
+          <!-- スタンプ獲得数 -->
+          <div ng-show="data.activity_kbn < 90">
+            <span class="font-size20">獲得数:{{data.stamp_su}}</span>
+          </div>
+            <!--活動名-->
+            <div class="fl-left mt-10 whitesp-normal">
+                <label class="font-size25 ml-0"> {{data.title}}</label>
+            </div>
+            <!--クリアアイコン-->
+            <div class="w-20p fl-left al-center mt-10 ml-30 pos-abs top-5 right-5">
+                <img ng-show="data.stamp_date == 0 " src="./img/miss-noget.png" class="w-60" />
+                <img ng-show="data.stamp_date != 0 " src="./img/miss-get.png" class="w-60" />
+            </span>
+            </div>
+          <!-- 実績登録ボタン（リーダーのみ） -->
+          <div ng-show="data.authority == 1 || data.authority == 3" class="fl-clear al-center">
+            <button class="btn-activReg" ng-click="popStampDescription(data);">実績登録</button>
+          </div>
+				</ion-item>
+			</ion-list>
+		</div>
+  </ion-content>
+    <!--活動詳細画面-->
+		<div id="activity-pop-frame" class="pop-back ">
+			<div class="pop w-90p h-70p mt-10">
+				<div class="pop-close">
+                    <p>活動の詳細</p>
+					<input class="pop-close-btn" type="button" ng-click="popDescriptionClose()">
+				</div>
+
+                <div class="w-100p h-90p ofy-scroll">
+                    <input type="hidden" id="activity_id" value="{{popActivity.activity_id}}" />
+
+                    <!--活動名-->
+                    <div class="mt-5 al-left mx-0 ml-10">
+                    <p class="al-left mx-0">活動名</p>
+                    <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.title}}" readonly/>
+                    </div>
+                    <!-- 活動区分 -->
+                    <div class="mt-5 al-left mx-0 ml-10">
+                    <p class="al-left mx-0">活動区分</p>
+                    <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.activity_kbn_nm}}" readonly/>
+                    </div>
+                    <!-- 実施場所 -->
+                    <div class="mt-5 al-left mx-0 ml-10">
+                    <p class="al-left mx-0">実施場所</p>
+                    <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.place}}" readonly/>
+                    </div>
+                    <!-- 日時 -->
+                    <div class="mt-5 al-left mx-0 ml-10 mb-20">
+                    <p class="al-left mx-0">日時</p>
+                    <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.start_date}}" readonly/>
+                    </div>
+                    <!-- 参加者一覧+アイコン -->
+                    <!-- <div class="mt-5 al-left mx-0 ml-10 mb-10 mr-10"> -->
+                    <!-- <p class="al-left mx-0 ml-10">参加者</p> -->
+                    <!-- <div class="w-100p disp-inflex ofx-scroll"> -->
+                        <!-- <div ng-repeat="user in users" class="w-30p disp-grid mx-5"> -->
+                        <!-- <img src="{{user.join_users_icon}}{{YtoS}}" class="w-80 ml-5 disp-block"/> -->
+                        <!-- <label class="font-size16 ml-5 disp-block">{{user.join_users}}</label> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    <!-- </div> -->
+                    <!-- 活動の修正・削除(管理者のみ)ボタン -->
+                    <button ng-show="popActivity.stamp_date == 0 && (popActivity.authority == 1 || popActivity.authority == 2)" class="btn-color03 mb-20 mx-0" ng-click="popRegActivity(popActivity)">活動を修正</button>
+                    <!-- 参加キャンセル(活動一覧から削除する)ボタン -->
+                    <button ng-show="popActivity.stamp_date == 0" class="btn-color01 mb-10 mx-0" ng-click="cancelActivity({{popActivity.activity_id}})">参加をキャンセル</button>
+                </div>
+			</div>
+		</div>
+
+        <!--活動登録ポップアップ-->
+        <div id="activity-reg-pop-frame" class="pop-back">
+            <div class="pop w-90p h-70p mt-10">
+                <div class="pop-close">
+                    <p>活動の修正</p>
+                    <input class="pop-close-btn" type="button" ng-click="popDescriptionActivityClose()">
+                </div>
+                <div class="w-100p h-90p ofy-scroll">
+                    <div>
+                        <label class="font-bold">団体名</label>
+                        <input type="text" id="reg_group_name" value="{{popActivity.group_name}}" class="w-90p border-gray border-r5 mb-10 px-10" readonly />
+                    </div>
+                    <div>
+                        <label class="font-bold">活動区分</label>
+                        <select id="reg_activity_kbn" class="w-90p h-50 border-gray border-r5 mb-10 bg-white color-black px-5" ng-model="reg_activity_kbn">
+                            <option ng-repeat="reg_activity_kbn in activitykbns" value="{{reg_activity_kbn.code}}">{{reg_activity_kbn.name}}</option>
+                        </select>
+                    </div>
+                    <label class="font-bold">活動名</label>
+                    <input type="text" id="reg_title" value="{{popActivity.title}}" class="w-90p border-gray border-r5 mb-10 px-10" />
+
+                    <label class="font-bold">活動内容</label>
+                    <textarea id="reg_description" class="w-90p group-pop-input mb-10 px-10" rows="3">{{popActivity.description}}</textarea>
+
+                    <label class="font-bold">活動場所</label>
+                    <input type="text" id="reg_place" value="{{popActivity.place}}" class="w-90p border-gray border-r5 mb-10 px-10" />
+
+                    <div class="mb-10">
+                        <p class="mb-5">活動日</p>
+                        <div class="disp-inflex w-95p">
+                        <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-l5">
+                          <select id="start_date_y" required class="w-100p font-size15" ng-model="start_date_y" ng-change="setDate()">
+                            <option ng-repeat="y in ddl_start_dateY" value="{{y}}" >{{y}}年</option>
+                          </select>
+                        </label>
+                        <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray">
+                          <select id="start_date_m" required class="w-100p font-size15" ng-model="start_date_m" ng-change="setDate()">
+                            <option ng-repeat="m in ddl_start_dateM" value="{{m}}" >{{m}}月</option>
+                          </select>
+                        </label>
+                        <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-rr5">
+                          <select id="start_date_d" required class="w-100p font-size15" ng-model="start_date_d">
+                            <option ng-repeat="d in ddl_start_dateD" value="{{d}}" >{{d}}日</option>
+                          </select>
+                        </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-10">
+                        <p class="font-bold">活動開始時間</p>
+                        <div class="disp-inflex w-95p">
+                          <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-l5">
+                            <select id="active_time_h" required class="w-100p font-size15">
+                            <option ng-repeat="h in ddl_active_timeH" value="{{h}}" >{{h}}</option>
+                            </select>
+                          </label>
+                            <label class="item w-50p h-50 pl-5 mt-5 border-gray">：</label>
+                          <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-rr5">
+                            <select id="active_time_m" required class="w-100p font-size15">
+                            <option ng-repeat="m in ddl_active_timeM" value="{{m}}" >{{m}}</option>
+                            </select>
+                          </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-10">
+                        <p class="font-bold">活動終了時間</p>
+                        <div class="disp-inflex w-95p">
+                          <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-l5">
+                            <select id="active_time_end_h" required class="w-100p font-size15">
+                            <option ng-repeat="h in ddl_active_time_endH" value="{{h}}" >{{h}}</option>
+                            </select>
+                          </label>
+                            <label class="item w-50p h-50 pl-5 mt-5 border-gray">：</label>
+                          <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-rr5">
+                            <select id="active_time_end_m" required class="w-100p font-size15">
+                            <option ng-repeat="m in ddl_active_time_endM" value="{{m}}" >{{m}}</option>
+                            </select>
+                          </label>
+                        </div>
+                    </div>
+
+                    <!-- <div>
+                    <label class="font-bold">定員数</label>
+                        <select id="number" class="w-90p h-50 border-gray border-r5 mb-10 bg-white color-black px-10" ng-model="number"></select>
+                    </div> -->
+
+                    <input type="button" id="activity_Upd" class="btn-color03 mb-10" value="活動を修正" ng-click="regActivity(popActivity,0);" />
+                    <input type="button" id="activity_Del" class="btn-color04 mb-10" value="活動を削除" ng-click="regActivity(popActivity,1)"></button>
+                </div>
+            </div>
+        </div>
+
+        <!--スタンプ獲得画面-->
+		<div id="stamp-pop-frame" class="pop-back ">
+			<div class="pop w-90p mt-10">
+				<div class="pop-close">
+          <p>活動実績作成</p>
+					<input class="pop-close-btn" type="button" ng-click="popStampDescriptionClose()">
+				</div>
+
+        <div class="w-100p h-80p">
+
+        <input type="hidden" id="group_id" value = "{{popActivity.group_id}}"/>
+        <input type="hidden" id="activity_id" value="{{popActivity.activity_id}}" />
+        <input type="hidden" id="activity_kbn" value="{{popActivity.activity_kbn}}" />
+        
+        <!-- 団体名 -->
+        <div class="mt-10 al-left mx-0 ml-10">
+        <p class="al-left mx-0">団体名</p>
+        <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.group_name}}" readonly/>
+        </div>
+        <!-- 活動区分 -->
+        <div class="mt-10 al-left mx-0 ml-10">
+        <p class="al-left mx-0">活動区分</p>
+        <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.activity_kbn_nm}}" readonly/>
+        </div>
+        <!-- 活動名 -->
+        <div class="mt-10 al-left mx-0 ml-10">
+        <p class="al-left mx-0">活動名</p>
+        <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.title}}" readonly/>
+        </div>
+        <!-- 日時 -->
+        <div class="mt-10 al-left mx-0 ml-10">
+        <p class="al-left mx-0">日時</p>
+        <input type="text" class="w-90p mx-0 px-10" value="{{popActivity.start_date}}" readonly/>
+        </div>
+
+        <!-- スタンプ生成ボタン -->
+        <div class="mb-20">
+          <button class="btn-color01" ng-click="regStamp(popActivity);">スタンプ作成</button>
+        </div>   
+
+      </div>
+			</div>
+		</div>
+</ion-view>

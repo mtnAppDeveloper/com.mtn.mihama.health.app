@@ -1,0 +1,41 @@
+<ion-view view-title="パズル">
+	<ion-content class="bg-notore" class="w-100p al-center" ng-controller="PuzzleCtrl">
+
+		<div class="pazzule-frame mt-10 bg-white al-center">
+			<label class="font-bold font-size20">お題：{{puzzle.name}}</label>
+			<p class="w-80p mt-5 mb-10 mx-auto font-size17">{{puzzle.biko}}</p>
+			<ul id="puzzle" class="mt-50"></ul>
+		</div>
+
+		<div id="start" class="w-100p al-center mt-10">
+			<p class="font-size17 font-bold">画像をよく記憶してからスタートしてください</p>
+            <input type="button" id="btn-start" class="button btn-color06 cal-go" value="スタート" ng-click="puzzleStart();" />
+		</div>
+
+		<div id="time-frame">
+			<p>経過時間</p>
+			<p id="time">00:00</p>
+		</div>
+
+
+		<!--説明画面-->
+		<div id="pop-frame_puzzle" class="pop-back">
+			<div class="pop">
+				<div class="pop-close">
+					<input class="pop-close-btn" type="button" ng-click="popDescriptionClose()">
+				</div>
+				<div class="mt-10">
+					<p class="color-main font-bold font-size30">クリア！</p>
+				</div>
+				<div class="font-bold">
+					<div>クリアタイム</div>
+					<div><label id="quiz-pop-time" class="color-main font-bold font-size30">{{clearTime}}</label></div>
+				</div>
+				<input type="button" id="btn-start" class="button btn-quiz-blue button btn-color01 w-90p" value="戻る" ng-click="playAgain();"/>
+			</div>
+		</div>
+
+		<!--センタボタン張り出し考慮-->
+		<div class="footer-cover"></div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,82 @@
+<ion-view view-title="計算">
+	<ion-content class="bg-notore w-100p al-center">
+
+		<div class="w-90p h-30p bg-white border-r5 mt-20">
+		    <div class="al-left ml-10 mt-10">
+                <label class="font-bold font-size17">Q</label>
+                <label class="color-main font-bold font-size20">{{question_no}}</label>
+                <label class="font-bold font-size17"> / {{question_no_all}}問</label>
+            </div>
+			<h1 id="cal-question" >{{formula}}</h1>
+		</div>
+
+		<div class="h-20 mt-5 font-size17">正解を選んで「答え」をタップしよう！</div>
+
+		<!--選択肢-->
+    <div class="w-90p h-40p flex-wrap disp-inflex al-center">
+      <!--A-->
+      <div id="selA" class="selecter" ng-click="SelectAnswer('A');">
+        <div class="selecter-no bg-color-orange">A</div>
+        <div class="al-center"><label id="selValA" class="font-size40">{{selectA}}</label></div>
+      </div>
+      <!--B-->
+      <div id="selB" class="selecter" ng-click="SelectAnswer('B');">
+        <div class="selecter-no bg-color-grn">B</div>
+        <div class="al-center"><label id="selValB" class="font-size40">{{selectB}}</label></div>
+      </div>
+      <!--C-->
+      <div id="selC" class="selecter" ng-click="SelectAnswer('C');">
+        <div class="selecter-no bg-color-pink">C</div>
+        <div class="al-center"><label id="selValC" class="font-size40">{{selectC}}</label></div>
+      </div>
+      <!--D-->
+      <div id="selD" class="selecter" ng-click="SelectAnswer('D');">
+        <div class="selecter-no bg-color-violet">D</div>
+        <div class="al-center"><label id="selValD" class="font-size40">{{selectD}}</label></div>
+      </div>
+    </div>
+
+    <!--隠し項目-->
+		<div>
+			<input type="hidden" id="hdn-answer" value="{{hdnAnswer}}"/>
+			<input type="hidden" id="hdn-sel-answer" value="{{hdnSelAnswer}}"/>
+			<input type="button" id="btn-go" class="button btn-color06 cal-go" value="答え" ng-click="NextQuestion();" />
+		</div>
+
+    <!--○×画面-->
+		<div id="pop-answer" class="pop-back">
+			<div id="pop-answer-true" class="mt-100 disp-none">
+				<div class="h-50 font-bold font-size40 color-wht">正解</div>
+				<img src="./img/notore/quiz-true.png" />
+			</div>
+			<div id="pop-answer-false"  class="mt-100 disp-none">
+				<div class="h-50 font-bold font-size40 color-wht">不正解</div>
+				<img src="./img/notore/quiz-false.png" />
+			</div>
+			<div class="bg-white w-60p h-100 border-r10">
+				<p class="mt-10 font-size20 px-10">答えは</p>
+				<p class="font-size30 font-bold">{{hdnAnswer}}</p>
+			</div>
+		</div>
+
+    <!--リザルト-->
+		<div id="pop-frame_calc" class="pop-back">
+			<div class="pop">
+				<div class="mt-10">
+					<p class="color-main font-bold font-size30">フィニッシュ！</p>
+				</div>
+				<div class="font-bold">
+					<div>正解数</div>
+					<div>
+            <label id="quiz-pop-time" class="color-main font-bold font-size30">{{trueCount}}</label>
+            <label class=""> / {{question_no_all}}問</label>
+          </div>
+				</div>
+				<input type="button" id="btn-start" class="button btn-quiz-blue button btn-color01 w-90p" value="戻る" ng-click="playAgain();"/>
+			</div>
+		</div>
+
+		<!--センタボタン張り出し考慮-->
+		<div class="footer-cover"></div>
+	</ion-content>
+</ion-view>

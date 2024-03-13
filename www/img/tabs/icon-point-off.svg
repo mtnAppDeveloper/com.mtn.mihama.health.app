@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_レイヤー_2" data-name="レイヤー 2" xmlns="http://www.w3.org/2000/svg" width="28.6" height="26.39" viewBox="0 0 28.6 26.39">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #787878;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="_タブバー" data-name="タブバー">
+    <g>
+      <g>
+        <g>
+          <path class="cls-1" d="m14.35,15.02v3.97c-.69,1.76-3.52,3.07-6.92,3.07s-6.24-1.32-6.92-3.07v-3.97"/>
+          <path class="cls-1" d="m14.35,11.5v3.97c-.69,1.76-3.52,3.07-6.92,3.07s-6.24-1.32-6.92-3.07v-3.97"/>
+          <path class="cls-1" d="m14.35,7.97v3.97c-.69,1.76-3.52,3.07-6.92,3.07s-6.24-1.32-6.92-3.07v-3.97"/>
+          <path class="cls-1" d="m14.35,4.45v3.97c-.69,1.76-3.52,3.07-6.92,3.07s-6.24-1.32-6.92-3.07v-3.97"/>
+          <ellipse class="cls-1" cx="7.42" cy="4.31" rx="6.92" ry="3.81"/>
+        </g>
+        <circle class="cls-1" cx="19.05" cy="16.84" r="9.05"/>
+      </g>
+      <path class="cls-1" d="m16.15,20.84v-7.85c1.11,0,6.48-.67,6.48,2.21,0,2.72-3.42,2.28-6.48,2.28"/>
+    </g>
+  </g>
+</svg>

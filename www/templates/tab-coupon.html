@@ -1,0 +1,48 @@
+<ion-view view-title="クーポン券一覧">
+  <ion-content ng-controller="CouponCtrl" class="body_color02 al-left" has-bouncing="false">
+    <div class="item item-divider">利用可能なクーポン券が{{couponCount}}件あります</div>
+    <!-- <div ng-show="kanren3 < today_date || today_date < kanren5" class="item item-divider al-center color-red">※クーポン券期間外です。※</div> -->
+    <ion-list id="itemlist" class="item-text-wrap">
+      <ion-item ng-show="kanren3 >= today_date && today_date >= kanren5" class="item item-icon-right" ng-repeat="coupon in coupons" ng-class="{bg_list_red:coupon.expire_date < today_date,bg_list_gray:coupon.use_date != null}" ng-click="useCoupon({{coupon}});">
+        <h2 class="font-bold">{{coupon.coupon_name}}</h2>
+        <p>発行枚数　　　：{{coupon.quantity}}枚</p>
+        <p>有効期限　　　：{{coupon.expire_date}}</p>
+        <p>累積ポイント数：{{coupon.point_gokei}}ポイント</p>
+        <p>ポイント交換日：{{coupon.issue_date}}</p>
+        <p>交換ポイント数：{{coupon.point_exchange}}ポイント</p>
+        <p>使用した店舗　：{{coupon.use_store_name}}</p>
+        <!-- <p>残りのポイント：{{coupon.point_remaining}}ポイント</p> -->
+        <!--利用可能-->
+        <i ng-if="coupon.use_date == null" class="icon ion-chevron-right icon-accessory"></i>
+        <!--期限切れ-->
+        <i ng-show="coupon.expire_date < today_date && coupon.use_date == null" class="icon">
+          <img src="./img/coupon-expired.png" class="w-60"/>
+        </i>
+        <!--使用済み-->
+        <i ng-show="coupon.use_date != null" class="icon">
+          <img src="./img/coupon-used.png" class="w-60"/>
+        </i>
+      </ion-item>
+      <ion-item ng-show="kanren3 < today_date || today_date < kanren5" class="item item-icon-right" ng-repeat="coupon in coupons" ng-class="{bg_list_red:coupon.expire_date < today_date,bg_list_gray:coupon.use_date != null}">
+        <h2 class="font-bold">{{coupon.coupon_name}}</h2>
+        <p>発行枚数　　　：{{coupon.quantity}}枚</p>
+        <p>有効期限　　　：{{coupon.expire_date}}</p>
+        <p>累積ポイント数：{{coupon.point_gokei}}ポイント</p>
+        <p>ポイント交換日：{{coupon.issue_date}}</p>
+        <p>交換ポイント数：{{coupon.point_exchange}}ポイント</p>
+        <p>使用した店舗　：{{coupon.use_store_name}}</p>
+        <!-- <p>残りのポイント：{{coupon.point_remaining}}ポイント</p> -->
+        <!--利用可能-->
+        <i ng-if="coupon.use_date == null" class="icon ion-chevron-right icon-accessory"></i>
+        <!--期限切れ-->
+        <i ng-show="coupon.expire_date < today_date && coupon.use_date == null" class="icon">
+          <img src="./img/coupon-expired.png" class="w-60"/>
+        </i>
+        <!--使用済み-->
+        <i ng-show="coupon.use_date != null" class="icon">
+          <img src="./img/coupon-used.png" class="w-60"/>
+        </i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

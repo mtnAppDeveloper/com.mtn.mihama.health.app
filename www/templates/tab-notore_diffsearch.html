@@ -1,0 +1,34 @@
+<ion-view view-title="間違い探し">
+	<ion-content class="bg-notore w-100p al-center" ng-controller="DiffSearchCtrl">
+
+    <p class="mt-10 font-bold font-size17">漢字と色の関係が正しいものを選ぼう！</p>
+
+    <p class="mt-10 font-size17">残り<label class="color-main font-bold font-size25">{{remainCount}}</label>個！</p>
+
+	<div class="w-90p h-80p border-r5 disp-inflex flex-wrap">
+		    <div id="selBack{{$index}}" class="w-40 h-40 bg-white border-r5 mx-3" style="background-color:{{item.back_color}}" ng-repeat="item in items" ng-click="choiceAnswer('{{$index}}','{{item.name}}','{{item.back_color}}');">
+                <label id="selMoji{{$index}}" class="font-size30" style="color:{{item.font_color}}">{{item.name}}</label>
+            </div>
+    </div>
+
+    <!--リザルト-->
+		<div id="pop-frame_diff" class="pop-back">
+			<div class="pop">
+				<div class="mt-10">
+					<p class="color-main font-bold font-size30">フィニッシュ！</p>
+				</div>
+				<div class="font-bold">
+					<div class="font-bold">結果</div>
+				    <div class="mt-10">
+                        <p class="font-size17" >正解数：{{ansCount}}</p>
+                        <p class="font-size17">不正解数：{{failCount}}</p>
+                    </div>
+				</div>
+				<input type="button" id="btn-start" class="button btn-quiz-blue button btn-color06 w-90p" value="戻る" ng-click="playAgain();"/>
+			</div>
+		</div>
+
+		<!--センタボタン張り出し考慮-->
+		<div class="footer-cover"></div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "1032518984951",
+    "project_id": "mihamaaiaiapp-f15c4",
+    "storage_bucket": "mihamaaiaiapp-f15c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032518984951:android:4758a64e373fb3dace1ff2",
+        "android_client_info": {
+          "package_name": "com.mtn.mihama.health.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032518984951-kode75ttnupnhdtiru7o2o3fpb3s4v4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mtn.mihama.health.app",
+            "certificate_hash": "6bce159f6c6319505a6e53f98ded462dcf0de0ba"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTOSc1BFmjNTyTcHFfJdFHLFpLCRn5tCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032518984951-523dteobaeuf4odf7vkl2f5cn1evh60d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1032518984951-i2lf97m1acibbra6lq075ac3gcn1b8sl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mtn.mihama.health.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

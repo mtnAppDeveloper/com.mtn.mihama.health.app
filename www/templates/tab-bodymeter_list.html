@@ -1,0 +1,42 @@
+<ion-view view-title="体組成測定結果一覧">
+	<ion-content ng-controller="BodyMeterListCtrl" style="width:100%;text-align:-webkit-center;">
+		<!--測定データ一覧-->
+    <input type="month" class="mx-5 w-50p" ng-model="targetYM.date" ng-change="getBodyMeterList();">
+		<div class="item item-divider point-menu">
+			<label>測定一覧</label>
+		</div>
+		<ion-list id="itemlist" class="al-left">
+			<ion-item class="" ng-repeat="meterResult in meterResults" >
+				<div class="w-70p al-left fl-left">
+					<!--測定項目-->
+					<h2 class="font-size19"> {{meterResult.measurement_date}}</h2>
+          <!--測定値-->
+				  <div class="ml-20">
+            <label class="font-size16"> {{meterResult.weight.name}}：{{meterResult.weight.value}}</label><br>
+          <label class="font-size16"> {{meterResult.fat.name}}：{{meterResult.fat.value}}</label><br>
+          <label class="font-size16"> {{meterResult.bmi.name}}：{{meterResult.bmi.value}}</label><br>
+				  </div>
+          
+				</div>
+        <!--ボタン-->
+				<div class="w-30p al-center fl-left">
+          <input type="button" class="btn-color03 mini" value="詳細" ng-click="popDetail('{{meterResult.measurement_date}}')" /><br>
+            <input type="button" class="btn-color04 mini" value="削除" ng-click="dataDelete()" />
+        </div>
+			</ion-item>
+		</ion-list>
+
+    <!--ポップアップ-->
+			<div id="popDetail" class="pop-back">
+				<div class="pop">
+					<div class="pop-close">
+						<input class="pop-close-btn" type="button" ng-click="popClose();">
+					</div>
+          <div class="h-90p of-scroll">
+            <div class="al-center font-size17 mb-10">{{measurement_date}}の測定情報</div>
+            <p ng-repeat="detail in details" ><label class="color-grn">{{detail.header_name_ja}}</label>：{{detail.value}}{{detail.unit}}</p>
+          </div>
+				</div>
+			</div>
+	</ion-content>
+</ion-view>

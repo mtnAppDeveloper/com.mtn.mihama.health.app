@@ -1,0 +1,25 @@
+<ion-view view-title="活動実績一覧" ng-controller="GroupActivityListCtrl">
+    <ion-content class="body_color02 al-left" has-bouncing="false">
+
+        <!-- 活動実績 -->
+        <div class="w-100p" ng-repeat="list in lists">
+            <div class="item item-divider">{{list.name}}</div>
+            <ion-list id="itemlist" class="al-left">
+				<ion-item class="item" ng-repeat="activityItem in list.activityItems" class="pr-5" ng-class="{bg_end_activity:{{activityItem.status}} ==2}">
+                    <div>
+                        <span class="font-size20">活動ステータス：{{activityItem.status_name}}</span>
+                    </div>
+                    <div>
+                        <span class="font-size20">活動日時　　　：{{activityItem.start_date}}</span>
+                    </div>
+                    <div>
+                        <span class="font-size20">活動内容　　　：{{activityItem.title}}</span>
+                    </div>
+                    <div>
+                        <span class="font-size20">スタンプ付与数：{{activityItem.stamp_su}}</span>
+                    </div>
+                </ion-item>
+			</ion-list>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,125 @@
+<ion-view view-title="健康診断" ng-controller="HealthCtrl">
+  <ion-content class="body_color02 al-left" has-bouncing="false">
+
+    <div class="mb-10 pb-10">
+      <p class="font-bold color-red al-center">注意</p>
+      <p class="font-bold al-center">①健康診断については、美浜町に住所のある方がポイント付与の対象となります。</p>
+      <p class="font-bold al-center">②町の健診（町の受診券を利用して医療機関で受診した方含む）を受診した方がポイント付与の対象です。職場等で受診した方はポイント付与の対象になりませんのでご注意ください。</p>
+      <div id="group_kenshin" class="personal-frame">
+        <div class="w-100p h-50 al-center body_color07 color-white border-rt10 shadow">
+          <p class="font-bold lh-50 mx-auto">集団検診の受診</p>
+        </div>
+        <ion-list id="itemlist_group" class="item-text-wrap">
+          <div ng-repeat="item in items">
+            <!-- 健康診断結果入力済 -->
+             <ion-toggle ng-if="item.shudan == 1" id="groupmedical{{item.medical_id}}" ng-model="onOff" ng-checked="item.medical_date != null" ng-disabled="item.medical_date != null" ng-click="popDescription_Group('{{item.medical_id}}','{{item.title}}','{{item.medical_date}}','{{item.medical_place}}');"
+              class="font-size20 font-bold">
+              {{item.title}}
+              <p ng-if="item.shudan == 1" id="description{{item.medical_id}}" class="color-red font-size15">{{item.description}}</p>
+              <p ng-if="item.shudan == 1" id="groupdate{{item.medical_id}}" class="font-size15" ng-show="item.medical_date != null">(受診日：{{item.medical_date}})</p>
+            <!-- </ion-toggle> -->
+          </div>
+        </ion-list>
+      </div>
+
+      <div id="kenshin" class="personal-frame">
+        <div class="w-100p h-50 al-center body_color05 color-white border-rt10 shadow">
+          <p class="font-bold lh-50 mx-auto">個別診断の受診</p>
+        </div>
+        <ion-list id="itemlist" class="item-text-wrap">
+          <div ng-repeat="item in items">
+            <!-- 健康診断結果入力済 -->
+            <ion-toggle ng-if="item.kobetsu == 1" id="medical{{item.medical_id}}" ng-model="onOff" ng-checked="item.medical_date != null" ng-disabled="item.medical_date != null" ng-click="popDescription('{{item.medical_id}}','{{item.title}}','{{item.medical_date}}','{{item.medical_place}}');"
+              class="font-size20 font-bold">
+              {{item.title}}
+              <p ng-if="item.kobetsu == 1" id="description{{item.medical_id}}" class="color-red font-size15">{{item.description}}</p>
+              <p ng-if="item.kobetsu == 1" id="date{{item.medical_id}}" class="font-size15" ng-show="item.medical_date != null">(受診日：{{item.medical_date}})</p>
+            </ion-toggle>
+          </div>
+        </ion-list>
+      </div>
+
+      <div id="sonota_kenshin" class="personal-frame">
+        <div class="w-100p h-50 al-center body_color08 color-white border-rt10 shadow">
+          <p class="font-bold lh-50 mx-auto">その他の診断</p>
+        </div>
+        <ion-list id="itemlist" class="item-text-wrap">
+          <div ng-repeat="item in items">
+            <!-- 健康診断結果入力済 -->
+            <ion-toggle ng-if="item.sonota == 1" id="medical{{item.medical_id}}" ng-model="onOff" ng-checked="item.medical_date != null" ng-disabled="item.medical_date != null" ng-click="popDescription('{{item.medical_id}}','{{item.title}}','{{item.medical_date}}','{{item.medical_place}}');"
+              class="font-size20 font-bold">
+              {{item.title}}
+              <p ng-if="item.sonota == 1" id="description{{item.medical_id}}" class="color-red font-size15">{{item.description}}</p>
+              <p ng-if="item.sonota == 1" id="date{{item.medical_id}}" class="font-size15" ng-show="item.medical_date != null">(受診日：{{item.medical_date}})</p>
+            </ion-toggle>
+          </div>
+        </ion-list>
+      </div>
+    </div>
+  </ion-content>
+  <!--検診用ポップアップ画面-->
+  <div id="challenge-pop-frame" class="pop-back">
+    <div class="pop w-90p mt-10">
+      <div class="pop-close">
+        <p>受診記録を入力</p>
+        <input class="pop-close-btn" type="button" ng-click="popDescriptionClose()">
+      </div>
+      <div class="w-100p h-100p ofy-scroll">
+        <p class="mt-20">受診日と受診場所を入力し、<br>登録ボタンを押してください。</p>
+
+        <input type="hidden" id="medical_id" value="{{popMedical.medical_id}}" />
+
+        <div class="mt-20">
+          <p class="al-left ml-20 mb-5">検（健）診名</p>
+          <input type="text" id="title" class="w-90p border-gray border-r5 px-10" value="{{popMedical.title}}" readonly/>
+        </div>
+
+        <div ng-show="kobetsu == true" class="mt-10">
+          <p class="al-left ml-20 mb-5">受診日</p>
+          <div class="disp-inflex w-90p">
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-l5">
+              <select id="medical_y" required class="w-100p font-size15" ng-model="ymd.medical_y" ng-change="setDate('1')">
+              <option ng-repeat="y in ddl_medicalY" value="{{y}}" >{{y}}年</option>
+              </select>
+            </label>
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray">
+              <select id="medical_m" required class="w-100p font-size15" ng-model="ymd.medical_m" ng-change="setDate('1')">
+              <option ng-repeat="m in ddl_medicalM" value="{{m}}" >{{m}}月</option>
+              </select>
+            </label>
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-gray border-rr5">
+              <select id="medical_d" required class="w-100p font-size15" ng-model="ymd.medical_d">
+                <option ng-repeat="d in ddl_medicalD" value="{{d}}" >{{d}}日</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div ng-show="kobetsu == false" class="mt-10">
+            <p class="al-left ml-20 mb-5">受診日</p>
+            <select id="medical_date_group" required class="w-90p border-gray border-r5 px-10">
+                <option ng-repeat="date in medical_dates" value="{{date}}" >{{date}}</option>
+                </select>
+        </div>
+
+        <div ng-show="kobetsu == true"class="mt-10">
+          <p class="al-left ml-20 mb-5">受診場所</p>
+          <input type="text" id="medical_place" class="w-90p border-gray border-r5 px-10" value="{{popMedical.medical_place}}" />
+        </div>
+
+        <div ng-show="kobetsu == false"class="mt-10">
+          <p class="al-left ml-20 mb-5">受診場所</p>
+            <select id="medical_place_group" required class="w-90p border-gray border-r5 px-10">
+                <option ng-repeat="place in medical_places" value="{{place}}" >{{place}}</option>
+                </select>
+        </div>
+
+        <div class="disp-inflex mt-20">
+          <button class="btn-color02 w-150" ng-click="popDescriptionClose()">中止</button>
+          <button class="ml-10 btn-color01 w-150" ng-click="regMedical()">登録</button>
+        </div>
+        <div class="h-50"></div>
+      </div>
+    </div>
+  </div>
+</ion-view>

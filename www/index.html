@@ -1,0 +1,128 @@
+<html>
+
+<head ng-controller="CommonCtrl">
+	<meta charset="utf-8">	    
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="viewport-fit=cover ,width=device-width,height=980, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+
+
+  <title></title>
+
+	<!--style-->
+	<link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <!--
+	<link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+  -->
+	<link href="css/style.css" rel="stylesheet">
+  <link href="css/styleb.css" rel="stylesheet">
+  <link href="css/puzzle.css" rel="stylesheet">
+
+
+	<!-- ionic/angularjs js -->
+	<script src="components/loader.js"></script>
+	<script src="lib/ionic/js/ionic.bundle.js"></script>
+
+	<!--core js-->
+	<script src="js/app.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/function.js"></script>
+
+	<!--Add m2612 -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/moment.min.js"></script>
+  <script src="js/linq.min.js"></script>
+  <script src="js/chart.min.js"></script>
+  <script src="js/sha256.js"></script>
+
+  <!-- Add m2662 -->
+  <script src="js/jquery.qrcode.min.js"></script>
+
+	<!--controllers-->
+	<script src="js/controller/controllers.js"></script>
+  <script src="js/controller/TopController.js"></script>
+  <script src="js/controller/NewsController.js"></script>
+  <script src="js/controller/ActivityController.js"></script>
+  <script src="js/controller/GrafController.js"></script>
+  <script src="js/controller/PointController.js"></script>
+  <script src="js/controller/GroupUserController.js"></script>
+  <script src="js/controller/GroupActivityController.js"></script>
+  <script src="js/controller/HealthController.js"></script>
+  <script src="js/controller/CheckListController.js"></script>
+  <script src="js/controller/CouponController.js"></script>
+  <script src="js/controller/BodyMeterController.js"></script>
+  <script src="js/controller/GroupController.js"></script>
+  <script src="js/controller/PersonalController.js"></script>
+  <script src="js/controller/BrainTrainingController.js"></script>
+  
+	<script type="text/javascript" charset="utf-8">
+	</script>
+
+</head>
+
+<body ng-app="starter" ng-controller="CommonCtrl" id="mainBody">
+	<ion-nav-bar id="navi-bar" no-tap-scroll="false" class="navilbar-background">
+		<ion-nav-back-button class="button-icon ion-arrow-left-c custom_back">
+		</ion-nav-back-button>
+		<ion-nav-buttons side="right">
+			<!-- <button id="menubutton" class=" button button-icon icon ion-navicon custom_navi"></button> -->
+            <img id="menubutton" src="./img/menu-btn.svg" class="h-100p w-100p" />
+		</ion-nav-buttons>
+	</ion-nav-bar>
+
+	<ion-nav-view>
+		<ion-content id="menulist" class="setting">
+				<ion-list>
+        <ion-item class="setting-item" ng-click="MoveMenu('#/tab/personal/');">
+					基本情報を設定
+				</ion-item>  
+        <ion-item ng-show="over60 == true" class="setting-item" ng-click="MoveMenu('#/tab/group/');">
+					団体に参加する
+				</ion-item>
+        <ion-item ng-show="over60 == true" class="setting-item" ng-click="MoveMenu('#/tab/group_user/');">
+					団体情報を確認
+				</ion-item>  
+        <ion-item ng-show="over60 == true" class="setting-item" ng-click="MoveMenu('#/tab/group_activity/');">
+					活動実績を確認
+				</ion-item>  
+        <ion-item class="setting-item" ng-click="MoveMenu('#/tab/health/');">
+            健康診断の登録
+                </ion-item>
+        <ion-item ng-show="over60 == true" class="setting-item" ng-click="MoveMenu('#/tab/checklist/');">
+					チェックリストの登録
+				</ion-item>
+        <!-- <ion-item class="setting-item" ng-click="MoveMenu('#/tab/coupon/');">
+					引換券を使う
+				</ion-item> -->
+        <ion-item class="setting-item" ng-click="MoveMenu('#/tab/question/');">
+					よくある質問
+				</ion-item>
+        <ion-item class="setting-item" ng-click="MoveGym();">
+					ご当地体操
+				</ion-item>
+        <ion-item ng-show="over60 == true" class="setting-item" ng-click="MoveGroupList();">
+					登録団体一覧
+				</ion-item>
+        <ion-item class="setting-item" ng-click="MoveShopList();">
+					クーポン引換店舗一覧
+				</ion-item>
+        <ion-item class="setting-item" ng-click="MoveMenu('#/tab/group/model_change/');">
+					機種変更
+				</ion-item>
+			</ion-list>
+        <!-- <ion-item class="setting-item" ng-click="MoveMenu('#/tab/btraining/');">
+					脳トレ
+            </ion-item> -->
+        <!-- <ion-item class="setting-item" ng-click="MoveMenu('#/tab/bodymeter/');">
+					体組成連携
+            </ion-item> -->
+		</ion-content>
+	</ion-nav-view>
+</body>
+
+</html>

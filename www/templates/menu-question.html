@@ -1,0 +1,22 @@
+<ion-view view-title="よくある質問">
+	<ion-content class="body_color02 al-center font-size16" ng-controller="AbtAppCtrl" has-bouncing="false">
+    <!--よくある質問一覧-->
+    <div ng-show="over60 == true" class="w-90p mt-10 ml-10 bg-white border-gray px-5 al-left border-r5" ng-repeat="question in questions">
+      <p class="color-black font-bold">Q.{{question.question}}</p>
+      <pre>{{question.answer}}</pre>
+      <a ng-if="question.link != null" class="mt-5" href="" ng-click="InvokeBrowser('{{question.link}}')">詳しくはこちら</a>
+    </div>
+  
+    <div ng-show="over60 == false || over60 != null"  class="w-90p mt-10 ml-10 bg-white border-gray px-5 al-left border-r5" ng-repeat="question_y in questions_young">
+      <p class="color-black font-bold">Q.{{question_y.question}}</p>
+      <pre>{{question_y.answer}}</pre>
+      <a ng-if="question_y.link != null" class="mt-5" href="" ng-click="InvokeBrowser('{{question_y.link}}')">詳しくはこちら</a>
+    </div>
+
+    <!--センタボタン張り出し考慮-->
+		<div class="footer-cover"></div>
+
+    <!--レイアウト崩れ対処法-->
+    <div class="h-150"></div>
+	</ion-content>
+</ion-view>

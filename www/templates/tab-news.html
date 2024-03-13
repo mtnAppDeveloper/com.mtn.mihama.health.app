@@ -1,0 +1,168 @@
+<ion-view view-title="お知らせ 一覧">
+  <ion-content ng-controller="NewsCtrl" class="body_color06 al-left" has-bouncing="false">
+
+    <div ng-show="registFlg">
+      <div id="toggle-tabs" class="toggle-tabs">
+        <button class="button toggle-tab toggle-tab-left" ng-class="{tab_color01:page_town, tab_color03:page_group}" ng-class="{active: active_content=='town'}" ng-click="setActiveContent('town')">
+        町から
+        </button>
+        <!-- 新着バッジ -->
+        <!-- <span class="badge-town">1</span> -->
+        <button href class="button toggle-tab toggle-tab-right" ng-class="{tab_color01:page_town, tab_color03:page_group}" ng-click="setActiveContent('group')">
+        団体から
+        </button>
+        <!-- 新着バッジ -->
+        <!-- <span class="badge-group">1</span> --> 
+      </div>
+    </div>
+
+    <!--町から-->
+    <ion-list id="itemlist" class="item-text-wrap" ng-show="active_content=='town'">
+      <!--タグ検索-->
+      <div class="bar item-input-inset bar-light h-50 ">
+        <label class="item-input-wrapper dll-frame">
+          <i class="icon ion-search placeholder-icon"></i>
+            <select id="sel_tag" class="ddl-search color-black">
+              <option value="0">全件表示</option>
+              <option ng-repeat="newsTag in town_newsTags" value="{{newsTag}}">{{newsTag}}</option>
+            </select>
+        </label>
+      </div>
+      <ion-item class="item item-icon-right midoku" ng-repeat="news in town_newses" ng-class="{kidoku:kidokuCheck({{news.activity_id}},'{{news.kbn}}')}" ng-click="moveNewsDetail({{news.news_id}},{{news.activity_id}},'{{news.kbn}}','town');">
+        <p class="news-time" ng-show="news.kbn == 'town'">投稿日：{{news.add_date}}</p>
+        <p class="news-time" ng-show="news.kbn == 'group'">活動日:{{news.start_date}}</p>
+        <p ng-show="news.tag != null">
+          <label class="news-tag mr-5 mb-5" ng-style="{'background-color' : '{{news.color}}'}" ng-bind="news.tag"></label>
+        </p>
+        <h2>{{news.title}}</h2>
+
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+    <!--グループから-->
+    <ion-list id="itemlist" class="item-text-wrap" ng-show="active_content=='group'">
+      <!--タグ検索-->
+      <div class="bar item-input-inset bar-light h-50 ">
+        <label class="item-input-wrapper dll-frame">
+          <i class="icon ion-search placeholder-icon"></i>
+            <select id="group_sel_tag" class="ddl-search color-black">
+              <option value="0">全件表示</option>
+              <option ng-repeat="newsTag in group_newsTags" value="{{newsTag}}">{{newsTag}}</option>
+            </select>
+        </label>
+      </div>
+      <div class="al-center mb-20" ng-show="authority > 0">
+        <button class="btn-color03" ng-click="ActiveAdd()">活動を追加</button>
+      </div>
+      <ion-item class="item item-icon-right midoku" ng-repeat="news in group_newses" ng-class="{kidoku:kidokuCheck({{news.activity_id}},'{{news.kbn}}')}" ng-click="moveNewsDetail({{news.news_id}},{{news.activity_id}},'{{news.kbn}}','group');">
+        <p class="news-time">活動日:{{news.start_date}}</p>
+        <p class="news-time">団体名:{{news.group_name}}</span>
+        <p ng-show="news.tag != null">
+          <label class="news-tag mr-5 mb-5" ng-style="{'background-color' : '{{news.color}}'}" ng-bind="news.tag"></label>
+        </p>
+        <h2>{{news.title}}</h2>
+
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <input type="hidden" id="group_id" />
+      <input type="hidden" id="member" />
+    </ion-list>
+  </ion-content>
+  <!--活動登録ポップアップ-->
+  <div id="activity-pop-frame" class="pop-back">
+    <div class="pop w-90p h-70p mt-10">
+      <div class="pop-close">
+        <p>活動の追加</p>
+        <input class="pop-close-btn" type="button" ng-click="popActivityClose()">
+      </div>
+
+      <div class="w-100p h-90p ofy-scroll">
+        <div>
+          <label class="font-bold">団体名</label>
+          <select id="group_name" class="w-90p h-50 border-gray border-r5 mb-10 bg-white color-black px-5" ng-model="group_name" ng-change="setNumber()">
+              <option ng-repeat="group_name in groupnames" value="{{group_name.group_id}}">{{group_name.name}}</option>
+            </select>
+        </div>
+
+        <div>
+          <label class="font-bold">活動区分</label>
+          <select id="activity_kbn" class="w-90p h-50 border-gray border-r5 mb-10 bg-white color-black px-5">
+              <option ng-repeat="activity_kbn in activitykbns" value="{{activity_kbn.code}}">{{activity_kbn.name}}</option>
+            </select>
+        </div>
+
+        <label class="font-bold">活動名</label>
+        <input type="text" id="title" class="w-90p border-gray border-r5 mb-10" />
+
+        <label class="font-bold">活動内容</label>
+        <textarea id="description" class="w-90p group-pop-input mb-10" rows="3"></textarea>
+
+        <label class="font-bold">活動場所</label>
+        <input type="text" id="place" class="w-90p border-gray border-r5 mb-10" />
+
+        <div class="mb-10">
+            <p class="mb-5">活動日</p>
+            <div class="disp-inflex w-95p">
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-black border-l5">
+            <select id="start_date_y" required class="w-100p font-size15" ng-model="personal.start_date_y" ng-change="setDate()">
+                <option ng-repeat="y in ddl_start_dateY" value="{{y}}" >{{y}}年</option>
+                </select>
+            </label>
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-black">
+            <select id="start_date_m" required class="w-100p font-size15" ng-model="personal.start_date_m" ng-change="setDate()">
+                <option ng-repeat="m in ddl_start_dateM" value="{{m}}" >{{m}}月</option>
+                </select>
+            </label>
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-black border-rr5">
+            <select id="start_date_d" required class="w-100p font-size15" ng-model="personal.start_date_d">
+                <option ng-repeat="d in ddl_start_dateD" value="{{d}}" >{{d}}日</option>
+                </select>
+            </label>
+            </div>
+        </div>
+
+        <div class="mb-10">
+            <p class="font-bold">活動開始時間</p>
+          <div class="disp-inflex w-95p">
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-black border-l5">
+                <select id="active_time_h" required class="w-100p font-size15">
+                <option ng-repeat="h in ddl_active_timeH" value="{{h}}" >{{h}}</option>
+                </select>
+            </label>
+            <label class="item w-50p h-50 pl-5 mt-5 font-bold border-black">：</label>
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-black border-rr5">
+                <select id="active_time_m" required class="w-100p font-size15">
+                <option ng-repeat="m in ddl_active_timeM" value="{{m}}" >{{m}}</option>
+                </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-10">
+            <p class="font-bold">活動終了時間</p>
+          <div class="disp-inflex w-95p">
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-black border-l5">
+                <select id="active_time_end_h" required class="w-100p font-size15">
+                <option ng-repeat="h in ddl_active_time_endH" value="{{h}}" >{{h}}</option>
+                </select>
+            </label>
+            <label class="item w-50p h-50 pl-5 mt-5 font-bold border-black">：</label>
+            <label class="item item-select w-50p h-50 pl-5 mt-5 border-black border-rr5">
+                <select id="active_time_end_m" required class="w-100p font-size15">
+                <option ng-repeat="m in ddl_active_time_endM" value="{{m}}" >{{m}}</option>
+                </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- <div>
+          <label class="font-bold">定員数</label>
+          <select id="number" class="w-90p h-50 border-gray border-r5 mb-10 bg-white color-black px-10" ng-selected="$last"></select>
+        </div> -->
+
+        <input type="button" id="activity_Add" class="btn-color01 mb-10" value="活動を作成" ng-click="CreateActivity();" />
+      </div>
+    </div>
+  </div>
+</ion-view>

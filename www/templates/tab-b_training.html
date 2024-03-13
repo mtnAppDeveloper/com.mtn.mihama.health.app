@@ -1,0 +1,63 @@
+<ion-view view-title="脳トレ">
+    <ion-content class="bg-notore w-100p al-center"  ng-controller="BTrainingCtrl">
+    <p class="mt-10 font-bold font-size20">脳トレをしよう！</p>
+
+    <!--難易度選択-->
+	  <div>
+      <p class="mb-0 font-bold">難易度を選択してください</p>
+		 <div class="mt-10">
+			<img src="./img/notore/notore-btn-easy.svg" class="pos-abs" ng-class="{easy: active_content=='easy'}" ng-click="setActiveContent('easy');">
+			<img src="./img/notore/notore-btn-hard.svg" ng-class="{hard: active_content=='hard'}"ng-click="setActiveContent('hard');">
+		 </div>
+	  </div>
+
+ <!--脳トレ一覧-->
+    <div class="div-flex mt-20">
+        <div>
+            <!-- パズル -->
+            <img src="./img/notore/notore-btn-puzzle.svg" ng-click="notoreMove('1');">
+            <img src="./img/notore/notore-btn-detail.svg" class="ml-50" ng-click="popDescription('1');">
+        </div>
+        <div>
+            <!-- 計算 -->
+            <img src="./img/notore/notore-btn-keisan.svg" ng-click="notoreMove('2');">
+            <img src="./img/notore/notore-btn-detail.svg" class="ml-50" ng-click="popDescription('2');">
+        </div>
+    </div>
+    <div class="div-flex mt-15">
+        <div>
+            <!-- 漢字 -->
+            <img src="./img/notore/notore-btn-kanji.svg" ng-click="notoreMove('3');">
+            <img src="./img/notore/notore-btn-detail.svg" class="ml-50" ng-click="popDescription('3');">
+        </div>
+        <div>
+            <!-- 間違い探し -->
+            <img src="./img/notore/notore-btn-colorkanji.svg" ng-click="notoreMove('4');">
+            <img src="./img/notore/notore-btn-detail.svg" class="ml-50" ng-click="popDescription('4');">
+        </div>
+    </div>
+    <div class="div-flex mt-15">
+        <div>
+            <!-- 暗記 -->
+            <img src="./img/notore/notore-btn-anki.svg" ng-click="notoreMove('6');">
+            <img src="./img/notore/notore-btn-detail.svg" class="ml-50" ng-click="popDescription('6');">
+        </div>
+        <div>
+            <!-- じゃんけん -->
+            <img src="./img/notore/notore-btn-janken.svg" ng-click="notoreMove('7');">
+            <img src="./img/notore/notore-btn-detail.svg" class="ml-50" ng-click="popDescription('7');">
+        </div>
+    </div>
+
+    <!--説明画面-->
+		<div id="pop-frame" class="pop-back">
+			<div class="pop">
+				<div class="pop-close">
+					<input class="pop-close-btn" type="button" ng-click="popDescriptionClose()">
+				</div>
+				<p>{{popDescriptionItem.name}}</p>
+				<pre>{{popDescriptionItem.biko}}</pre>
+			  </div>
+		</div>
+  </ion-content>
+</ion-view>

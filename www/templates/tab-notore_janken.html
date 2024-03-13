@@ -1,0 +1,62 @@
+<ion-view view-title="じゃんけん">
+	<ion-content class="bg-notore w-100p al-center">
+
+		<div class="w-90p h-30p bg-white border-r5 mt-20">
+				<div class="al-left ml-10 mt-10">
+          <label class="font-bold font-size17">Q</label>
+          <label class="color-main font-bold font-size20">{{question_no}}</label>
+          <label class="font-bold font-size17"> / {{question_no_all}}問</label>
+        </div>
+			<img ng-show="questionStart" ng-src="{{question}}" class="w-100 h-100 mt-20" />
+      <p>3秒で次の問題へ移ります</p>
+		</div>
+    <img src="./img/notore/notore-btn-start.svg" id="btn-go" ng-show="!questionStart" class="mt-20" value="スタート！" ng-click="startQuestion();" />
+
+		<div ng-show="questionStart" class="h-50 px-10 mt-10 mb-10 font-size50 font-bold {{question_class}}">{{question_text}}</div>
+
+		<!--選択肢-->
+    <div ng-show="questionStart" class="w-90p h-40p flex-wrap disp-inflex al-center">
+      <!--グー-->
+      <div id="sel_gu" class="selecter selecter-gu" ng-click="SelectAnswer('gu', 0);">
+      </div>
+      <!--チョキ-->
+      <div id="sel_choki" class="selecter selecter-choki" ng-click="SelectAnswer('choki', 1);">
+      </div>
+      <!--パー-->
+      <div id="sel_pa" class="selecter selecter-pa" ng-click="SelectAnswer('pa', 2);">
+      </div>
+    </div>
+
+    <!--○×画面-->
+		<div id="pop-answer" class="pop-back">
+			<div id="pop-answer-true" class="mt-100 disp-none">
+				<div class="h-50 font-bold font-size40 color-wht">正解</div>
+				<img src="./img/notore/quiz-true.png" />
+			</div>
+			<div id="pop-answer-false"  class="mt-100 disp-none">
+				<div class="h-50 font-bold font-size40 color-wht">不正解</div>
+				<img src="./img/notore/quiz-false.png" />
+			</div>
+		</div>
+
+   <!--リザルト-->
+		<div id="pop-frame_janken" class="pop-back">
+			<div class="pop">
+				<div class="mt-10">
+					<p class="color-main font-bold font-size30">フィニッシュ！</p>
+				</div>
+				<div class="font-bold">
+					<div>正解数</div>
+					<div>
+            <label id="quiz-pop-time" class="color-main font-bold font-size30">{{trueCount}}</label>
+            <label class=""> / {{question_no_all}}問</label>
+          </div>
+				</div>
+				<input type="button" id="btn-start" class="button btn-quiz-blue button btn-color01 w-90p" value="戻る" ng-click="playAgain();"/>
+			</div>
+		</div>
+
+		<!--センタボタン張り出し考慮-->
+		<div class="footer-cover"></div>
+	</ion-content>
+</ion-view>

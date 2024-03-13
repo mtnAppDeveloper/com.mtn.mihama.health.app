@@ -1,0 +1,39 @@
+<ion-view view-title="グラフ">
+  <ion-content ng-controller="GrafCtrl" class="body_color02 al-center" has-bouncing="false">
+    <!--週/月/年タブ-->
+    <div class="tabs-top tabs-striped tabs-background-stable">
+      <div class="tabs h-50 top-0 w-100p">
+        <a href class="tab-item top-tab-item max-w-500" ng-class="{active: active_content=='month'}" ng-click="setActiveContent('month')">月</a>
+        <a href class="tab-item top-tab-item max-w-500" ng-class="{active: active_content=='year'}" ng-click="setActiveContent('year')">年</a>
+      </div>
+    </div>
+    <div class="h-50"></div>
+
+
+    <!--切り替え-->
+    <div class="disp-inflex">
+      <button class="icon ion-chevron-left button btn-prev" ng-click="ActivePrev();"></button>
+        <label class="font-bold pt-10">{{date_range}}</label>
+      <button class="icon ion-chevron-right button btn-next" ng-click="ActiveNext();"></button>
+    </div>
+
+    <div id="chart-container" class="">
+        <canvas id="myChart0" class="chart-border w-100p bg-white"></canvas>
+    </div>
+
+    <table class="w-100p mt-20 activity-graf">
+      <tr>
+        <th>日付</th>
+        <th>活動数</th>
+        <th>参加数</th>
+      </tr>
+      <tr ng-repeat="activity in activities">
+        <td class="">{{activity.title}}</td>
+        <td class="al-right">{{activity.allCount}}回</td>
+        <td class="al-right">{{activity.joinCount}}回</td>
+      </tr>
+    </table>
+    <!--センタボタン張り出し考慮-->
+    <div class="footer-cover"></div>
+  </ion-content>
+</ion-view>

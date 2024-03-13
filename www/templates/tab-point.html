@@ -1,0 +1,192 @@
+<ion-view view-title="ポイント">
+  <ion-content ng-controller="PointCtrl" class="bg-white al-center" has-bouncing="false">
+
+    <!-- 高齢者向け -->
+    <div ng-show="over60 == true" class="w-100p h-100p">
+      <div class="mt-10 div-flex-point al-center mx-0">
+        <div class="mt-15 w-40p al-right w-30p">
+          <p class="font-size18 font-bold mr-10 mx-0">現在の</p>
+          <p class="font-size18 font-bold mr-10 mx-0">ポイント</p>
+        </div>
+        <div class="w-30p al-center">
+          <p id="point" class="mt-30 font-size40 point-val" value="{{point}}">{{point}}</p>
+        </div>
+        <div class="w-30p al-left">
+          <p class="font-bold mt-40">ポイント</p>
+        </div>
+      </div>
+
+    <div ng-show="point >= 1000">
+      <input type="button" class="btn-pointchange mt-10 font-bold" value="ポイント交換" ng-click="MoveMenu('#/tab/point/exchange/');">
+    </div>
+
+    <!--青ストライプ背景-->
+    <div class="bg-backimg">
+      <!--ポイント獲得履歴-->
+      <div class="point-frame">
+        <div>
+          <p class="al-center font-bold font-size20 vertical-middle mt-20">ポイント獲得履歴(1年分)</p>
+        </div>
+        <!--切替ボタン-->
+        <div class="div-flex">
+          <button class="btn-change" ng-class="{btn_change_active:btn_area}" ng-click="setPointHistory('area')">地域貢献活動</button>
+          <button class="btn-change" ng-class="{btn_change_active:btn_health}" ng-click="setPointHistory('health')"">健康づくり活動</button>
+        </div>
+
+        <!-- 地域貢献活動のポイント履歴 -->
+        <div ng-show="pointHistory == 'area'">
+          <table ng-repeat="area in areas" class="w-100p table-layout-fixed">
+                <!-- 5列ごとに表示する -->
+                <tr ng-show="$index % 5 == 0">
+                    <!-- 1列目 -->
+                    <td ng-if="areas[$index].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{areas[$index].stamp_date_m}}月<br>{{areas[$index].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="areas[$index].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+1}}
+                    </td>
+                    <!-- 2列目 -->
+                    <td ng-if="areas[$index+1].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{areas[$index+1].stamp_date_m}}月<br>{{areas[$index+1].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="areas[$index+1].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+2}}
+                    </td>
+                    <!-- 3列目 -->
+                    <td ng-if="areas[$index+2].stamp_date_m != null" class="vertical-middle h-80">
+                        <p >{{areas[$index+2].stamp_date_m}}月<br>{{areas[$index+2].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="areas[$index+2].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+3}}
+                    </td>
+                    <!-- 4列目 -->
+                    <td ng-if="areas[$index+3].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{areas[$index+3].stamp_date_m}}月<br>{{areas[$index+3].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="areas[$index+3].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+4}}
+                    </td>
+                    <!-- 5列目 -->
+                    <td ng-if="areas[$index+4].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{areas[$index+4].stamp_date_m}}月<br>{{areas[$index+4].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="areas[$index+4].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+5}}
+                    </td>
+                </tr>
+          </table>
+        </div>
+        
+        <!-- 健康づくり活動のポイント履歴 -->
+        <div ng-show="pointHistory == 'health'">
+          <table ng-repeat="health in healths" class="w-100p table-layout-fixed">
+                <!-- 5列ごとに表示する -->
+                <tr ng-show="$index % 5 == 0">
+                    <!-- 1列目 -->
+                    <td ng-if="healths[$index].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{healths[$index].stamp_date_m}}月<br>{{healths[$index].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="healths[$index].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+1}}
+                    </td>
+                    <!-- 2列目 -->
+                    <td ng-if="healths[$index+1].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{healths[$index+1].stamp_date_m}}月<br>{{healths[$index+1].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="healths[$index+1].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+2}}
+                    </td>
+                    <!-- 3列目 -->
+                    <td ng-if="healths[$index+2].stamp_date_m != null" class="vertical-middle h-80">
+                        <p >{{healths[$index+2].stamp_date_m}}月<br>{{healths[$index+2].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="healths[$index+2].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+3}}
+                    </td>
+                    <!-- 4列目 -->
+                    <td ng-if="healths[$index+3].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{healths[$index+3].stamp_date_m}}月<br>{{healths[$index+3].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="healths[$index+3].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+4}}
+                    </td>
+                    <!-- 5列目 -->
+                    <td ng-if="healths[$index+4].stamp_date_m != null" class="vertical-middle h-80">
+                        <p>{{healths[$index+4].stamp_date_m}}月<br>{{healths[$index+4].stamp_date_d}}日</p>
+                        <img src='./img/stamp.png' class="h-45">
+                    </td>
+                    <td ng-if="healths[$index+4].stamp_date_m == null" class="point-stamp h-80">
+                        {{$index+5}}
+                    </td>
+                </tr>
+          </table>
+        </div>
+        <!-- デザイン調整用 -->
+        <div class="h-100"></div>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- 若者向け -->
+    <div ng-show="over60 == false" class="w-100p h-100p">
+        <div class="mt-10 div-flex-point al-center mx-0">
+            <div class="mt-15 w-40p al-right w-30p">
+            <p class="font-size18 font-bold mr-10 mx-0">現在の</p>
+            <p class="font-size18 font-bold mr-10 mx-0">ポイント</p>
+            </div>
+            <div class="w-30p al-center">
+            <p id="point" class="mt-30 font-size40 point-val" value="{{point}}">{{point}}</p>
+            </div>
+            <div class="w-30p al-left">
+            <p class="font-bold mt-40">ポイント</p>
+            </div>
+        </div>
+            <!-- ポイント交換ボタン -->
+            <div class="mt-10" ng-show="point >= 1000">
+              <input type="button" class="btn-pointchange mt-10 font-bold w-65p mb-5" value="ポイント交換" ng-click="MoveMenu('#/tab/point/exchange/');">
+            </div>
+            <!-- ポイント説明ボタン -->
+            <div>
+              <input type="button" class="btn-pointabout mt-10 font-bold w-65p mb-10" value="ポイントについて" ng-click="popDescription();">
+            </div>
+            <!-- ポイント獲得履歴 -->
+            <div class="mt-10 mb-20" style="background-color:EBEBEB">
+                <div class="pt-20">
+                    <div class="h-50 al-center color-white border-rt10 w-90p"   style="background-color:000000">
+                        <p class="font-bold lh-50 mx-auto">ポイント獲得履歴(1年分)</p>
+                    </div>
+                    <div class="w-90p" style="background-color:ffffff">
+                        <div class="disp-flex border-gray-3" ng-repeat="history in histories">
+                            <p class="ml-10 mt-10">{{history.point_date}}</p> 
+                            <p class="font-bold ml-10 mt-10 font-size15">{{history.title}}</p>
+                            <p class="font-bold ml-30 mt-10" style="color:red" ng-if="history.point > 0">+{{history.point}}</p>
+                            <p class="font-bold ml-30 mt-10" style="color:red" ng-if="history.point <= 0">{{history.point}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--ポイント説明ポップアップ-->
+		<div id="pop-frame" class="pop-back">
+			<div class="pop">
+				<div class="point-pop-close">
+					<input class="pop-close-btn" type="button" ng-click="popDescriptionClose()">
+				</div>
+                <p>１ポイント＝１円にあたります。</p>
+                <p>１０００ポイント貯めることで、ポイント交換ボタンが出現します。</p>
+			  </div>
+		</div>
+    </div>
+
+  </ion-content>
+</ion-view>

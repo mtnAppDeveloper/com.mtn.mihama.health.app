@@ -1,0 +1,16 @@
+<ion-view view-title="メンバー 一覧" ng-controller="GroupUserMemberCtrl">
+  <ion-content class="body_color02" style="text-align:left;" has-bouncing="false">
+    <!-- グループ一覧 -->
+    <div class="item item-divider">
+      <h3>{{group.name}}
+        <h3>
+          <p>{{group.description}}</p>
+    </div>
+    <ion-list id="itemlist" class="item-text-wrap">
+      <ion-item class="item item-avatar" ng-repeat="member in members">
+        <img ng-src="{{member.icon}}{{YtoS}}" onerror="this.src='./img/thumb-default.png';" class="w-50 h-50" ng-click="dispProfile('{{member.user_id}}');">
+        <h2>{{member.name}}</h2>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

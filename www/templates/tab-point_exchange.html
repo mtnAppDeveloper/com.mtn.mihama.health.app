@@ -1,0 +1,102 @@
+<ion-view view-title="ポイント交換" ng-controller="ExchangePointCtrl">
+    <ion-content class="bg-exchange" has-bouncing="false">
+
+            <!--ポイント表示部分-->
+            <div class="bg-white div-flex-point al-center mr-20 mx-0">
+                <div class="mt-15 w-40p al-right w-30p">
+                    <p class="font-size18 font-bold mr-20 mx-0">{{turn}}</p>
+                    <p class="font-size18 font-bold mr-20 mx-0">ポイント</p>
+                </div>
+                <div class="w-30p">
+                    <p name="point" class="mt-30 font-size40 point-val">{{point}}</p>
+                </div>
+                <div class="w-30p al-left">
+                    <p class="font-bold mt-40">ポイント</p>
+                </div>
+            </div>
+
+            <!-- 景品一覧 -->
+            <!-- <p class="font-bold al-center font-size30">景品一覧</p> -->
+            <div id="prizes-container">
+                <!-- ここに景品の情報を追加 -->
+                <ion-item class="bg-exchange" ng-repeat="pointgift in pointgift_list">
+                <div class="prize al-center">
+                    <img src="{{pointgift.img}}" alt="" width="100" height="100" ng-click="popPointGiftDescription(pointgift);">
+                    <p class="font-bold mt-10">{{pointgift.gift_name}}</p>
+                    <p class="font-bold">{{pointgift.point}} ポイント</p>
+                    <button class="btn-exchange mt-20 font-bold" ng-click="popPointGiftDescription(pointgift);">交換する</button>
+                </div>
+            </div>
+            <!--交換部分-->
+            <!-- <div>
+                <div class="mt-10 ml-50">
+                    <p class="al-left font-size18 font-bold mb-0">活動奨励品</p>
+                    <select id="coupon" name="coupon_select" class="w-80p h-40 exc-select font-size18 font-bold color-black border-r5" ng-model="sel_coupons" ng-change="changeSelectCoupon();">
+                        <option ng-if="coupon.name != null" id="coupon{{$index+1}}" ng-repeat="coupon in coupons" class="selecter" value="{{coupon.coupon_id}}">{{coupon.name}}</option>
+                    </select>
+                </div>
+
+                <div class="ml-50 mt-10">
+                    <p class="al-left font-size18 font-bold mb-0">枚数</p>
+                    <select id="leaf" name="leaves" class="w-80p h-40 exc-select font-size18 font-bold color-black border-r5" ng-model="selecter2" ng-change="changeSelectLeaves();">
+                        <option ng-repeat="leave in leaves" class="selecter" value="{{leave}}"ng-selected="$last">{{leave}}枚</option>
+                    </select>
+                </div>
+
+                <div class="ml-50 mt-10">
+                    <p class="al-left font-size18 font-bold mb-0">必要ポイント（1ポイント：100円）</p>
+                    <input type="text" id="need_point" class="w-80p font-size18 font-bold border-gray-2 px-10" value="{{after_need_point}}ポイント" readonly/>
+                </div>
+
+                <div ng-if="deplicateCouponCount == 0" class="al-center mt-20">
+                    <p class="font-bold color-red mx-0">ポイントの交換は1回限りとなります</p>
+                    <button class="btn-exchange mt-20 font-bold" ng-click="exchangePoint();">交換する</button>
+                </div>
+
+                <div ng-if="deplicateCouponCount > 0" class="al-center mx-0 mt-20">
+                    <p class="font-bold color-red mx-0">既にポイント交換を行っています</p>
+                    <button class="btn-exchange mt-20 font-bold" ng-click="moveCoupon();">引換券一覧</button>
+                </div>
+            </div> -->
+    </ion-content>
+
+        <!--活動登録ポップアップ-->
+        <div id="pointgift-pop-frame" class="pop-back">
+            <div class="pop w-90p h-70p mt-10">
+                <div class="pop-close">
+                    <p>ポイント交換</p>
+                    <input class="pop-close-btn" type="button" ng-click="popDescriptionClose()">
+                </div>
+                <div class="w-100p h-90p ofy-scroll">
+                    <div>
+                      <img src="{{popPointGift.img}}" alt="" width="100" height="100" class="al-center">
+                    </div>
+                    <div>
+                        <label class="font-bold">商品名</label>
+                        <input type="text" id="pop_gift_name" value="{{popPointGift.gift_name}}" class="w-90p border-gray border-r5 mb-10 px-10" readonly />
+                    </div>
+                    <div>
+                        <label class="font-bold">説明</label>
+                        <input type="text" id="biko" value="{{popPointGift.biko}}" class="w-90p border-gray border-r5 mb-10 px-10" readonly />
+                    </div>
+                    <div>
+                        <label class="font-bold">枚数</label>
+                        <!-- <select id="quantity" name="quantity" class="w-90p border-gray border-r5 mb-10 px-10" ng-model="selecter3" ng-change="changeSelectQuantities();">
+                            <option  class="selecter" value="1">1</option>
+                        </select> -->
+                        <input type="text" id="quantity" value="1" class="w-90p border-gray border-r5 mb-10 px-10" readonly />
+                    </div>
+                    <div>
+                        <label class="font-bold">必要ポイント数</label>
+                        <input type="text" id="exchange_point" value="{{popPointGift.point}}" class="w-90p border-gray border-r5 mb-10 px-10" readonly />
+                    </div>
+
+                    <p class="font-bold color-red mx-0">必ず「基本情報を設定」の画面で<br>"氏名"と"住所"を<br>入力してください</p>
+                    <input type="hidden" id="gift_id" value="{{popPointGift.gift_id}}" />
+                    <button class="btn-color04 mb-10" ng-click="exchangePointGift()">交換する</button>
+                </div>
+            </div>
+        </div>
+    <!-- </ion-content> -->
+
+</ion-view>

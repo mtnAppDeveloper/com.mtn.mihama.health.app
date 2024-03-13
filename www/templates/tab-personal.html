@@ -1,0 +1,236 @@
+<ion-view view-title="基本情報">
+  <ion-content ng-controller="PersonalCtrl" class="body_color02 w-100p al-center" has-bouncing="false">
+
+    <div class="profile">
+      <form id="file_form" action="" method="post">
+        <div class="profile-picture big-profile-picture">
+          <canvas id="user_icon_canvas" name="user_icon_canvas" width="120px" height="120px" crossorigin="anonymous"></canvas>
+          <canvas id="user_icon_canvas_temp" name="user_icon_canvas" width="240px" height="240px" crossorigin="anonymous" style="display:none;"></canvas>
+        </div>
+        <div class="mx-10">
+          <p>基本情報</p>
+          <p>氏名：<label class="font-bold">{{personal.name}}</label>さん</p>
+        </div>
+
+        <input type="hidden" name="hdn-userid" value="{{personal.userid}}">
+        <label class="file_upload">
+          +アイコンを変更
+          <input type="button" ng-click="selectPhoto();" value="選択"/>
+        </label>
+      </form>
+    </div>
+
+    <div style="clear:both;"></div>
+    <div id="personal" class="personal-frame">
+      <div class="h-20"></div>
+
+      <ion-toggle ng-model="enablePush.checked" ng-change="devModeCountUp();" class="pl-5">プッシュ通知の受取</ion-toggle>
+      <!--
+      <ion-toggle class="pos-rel pointer-events-init" ng-model="privateMode.checked">公開する情報を制限
+        <img src="./img/question.png" class="zindex-max pos-abs w-20 h-20 ml-5"  ng-click="popDescription();"/>
+      </ion-toggle>
+      -->
+      <div class="h-20"></div>
+
+      <!--ユーザID-->
+      <div class="group">
+        <input type="text" id="user_id" class="inputMaterial" value="{{personal.user_id}}" readonly/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label inputFocus">ユーザID</label>
+      </div>
+      <!--手帳番号-->
+      <div class="group"  ng-show="over60 == true">
+        <input type="text" id="book_no" class="inputMaterial" value="{{personal.book_no}}" ng-readonly="cert == true"/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label inputFocus">手帳番号</label>
+      </div>
+      <!--氏名-->
+      <div class="group">
+        <input type="text" id="name" class="inputMaterial" value="{{personal.name}}" ng-readonly="cert == true"/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label inputFocus">氏名</label>
+      </div>
+      <!--かな-->
+      <div class="group">
+        <input type="text" id="name_kana" class="inputMaterial" value="{{personal.name_kana}}" ng-readonly="cert == true"/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label inputFocus">氏名（かな）</label>
+      </div>
+      <!--性別-->
+      <label class="item item-select item-select_right h-50 pl-5 bt-none">
+        <label  style="color: #999;" >性別</label>
+      <select id="sei" required class="w-60p al-center" ng-model="personal.sei" ng-readonly="cert == true">
+          <option ng-repeat="sei in seis" value="{{sei.code}}" readonly>{{sei.name}}</option>
+        </select>
+      </label>
+
+      <!--生年月日-->
+      <div><label style="color: #999;">生年月日</label></div>
+      <div class="w-100p disp-inflex">
+        <label class="item item-select w-50p h-50 pl-5 bt-none mt-5">
+        <select id="birth_y" required class="w-100p" ng-model="personal.birth_y" ng-readonly="cert == true">
+          <option ng-repeat="y in ddl_birthY" value="{{y}}" readonly >{{y}}年</option>
+        </select>
+        </label>
+        <label class="item item-select w-50p h-50 pl-5 bt-none mt-5">
+        <select id="birth_m" required class="w-100p" ng-model="personal.birth_m" ng-readonly="cert == true" >
+          <option ng-repeat="m in ddl_birthM" value="{{m}}" readonly >{{m}}月</option>
+        </select>
+        </label>
+        <label class="item item-select w-50p h-50 pl-5 bt-none mt-5">
+        <select id="birth_d" required class="w-100p" ng-model="personal.birth_d" ng-readonly="cert == true" >
+          <option ng-repeat="d in ddl_birthD" value="{{d}}" readonly >{{d}}日</option>
+        </select>
+        </label>
+      </div>
+
+      <!--血液型-->
+      <label class="item item-select item-select_right h-50 pl-5 bt-none">
+        <label  style="color: #999;" >血液型</label>
+      <select id="blood" required class="w-60p al-center" ng-model="personal.blood">
+          <option ng-repeat="blood in bloods" value="{{blood.code}}">{{blood.name}}</option>
+        </select>
+      </label>
+
+      <!--住所-->
+      <div class="group">
+        <input type="text" id="address" class="inputMaterial" ng-model="personal.address" value="{{personal.address}}" ng-readonly="cert == true"/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label inputFocus">住所</label>
+      </div>
+
+      <!--連絡先-->
+      <div class="group">
+        <input type="text" id="tel" class="inputMaterial" ng-model="personal.tel" value="{{personal.tel}}" ng-readonly="cert == true"/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label inputFocus">連絡先</label>
+      </div>
+
+      <!--身長-->
+      <div class="group">
+        <input type="text" inputmode="numeric" pattern="\d*" id="height" class="inputMaterial" ng-model="personal.height" value="{{personal.height}}" required/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label">身長</label>
+      </div>
+
+      <!--体重-->
+      <div class="group">
+        <input type="text" inputmode="numeric" pattern="\d*" id="weight" class="inputMaterial" ng-model="personal.weight" value="{{personal.weight}}" required/>
+        <span class="highlight"></span><span class="bar input-bar"></span>
+        <label class="input-label">体重</label>
+      </div>
+
+      <!--ポイント管理者-->
+      <div ng-show="over60 == true" class="w-100p h-50 disp-inflex group bar">
+          <div class="w-80p">
+            <label class="input-label pos-init px-0">ポイントシール管理者<br>（200ポイント付与）</label>
+        </div>
+        <div class="fl-right">
+            <span ng-if="personal.stamp_manager == 1" class="color-red">登録済</span>
+            <span ng-if="personal.stamp_manager == 0" class="color-gray">未登録</span>
+        </div>
+      </div>
+
+      <!--老人クラブ-->
+      <div ng-show="over60 == true" class="w-100p h-50 disp-inflex group bar">
+          <div class="w-80p">
+            <label class="input-label pos-init px-0">町老人クラブ会員<br>（100ポイント付与）</label>
+        </div>
+        <div class="fl-right">
+            <span ng-if="personal.senior_club == 1" class="color-red">登録済</span>
+            <span ng-if="personal.senior_club == 0" class="color-gray">未登録</span>
+        </div>
+      </div>
+
+      <!--シルバー人材センター-->
+      <div ng-show="over60 == true" class="w-100p h-50 disp-inflex group bar">
+          <div class="w-80p">
+            <label class="input-label pos-init px-0">シルバー人材センター会員<br>（100ポイント付与）</label>
+        </div>
+        <div class="fl-right">
+            <span ng-if="personal.silver_human == 1" class="color-red">登録済</span>
+            <span ng-if="personal.silver_human == 0" class="color-gray">未登録</span>
+        </div>
+      </div>
+
+      <div class="al-center">
+        <button class="btn-color01 mb-20" ng-model="updbutton" ng-click="regUser()"> 登録</button>
+      </div>
+
+        <!--招待コード　コード入力-->
+        <div ng-show="over60 == false" id="personal" class="personal-frame mt-30">
+            <div id="invite-input">
+                <div class="w-100p al-center"><label class="font-bold">サポーター企業コード入力</label></div>
+                <div class="h-20"></div>
+                <div class="group text-half">
+                    <input type="text" id="invite" class="inputMaterial" required/>
+                    <span class="highlight"></span><span class="bar input-bar"></span>
+                    <label class="input-label">サポーター企業コード</label>
+                </div>
+                <div class="al-center w-100p">
+                    <button class="button btn-color01 mb-10 large" ng-click="codeInput()">コード入力</button>
+                </div>
+            </div>
+        </div>
+        <!--連携リセット-->
+        <div id="" class="personal-frame mt-30">
+            <div id="ivite-input">
+                <div class="w-100p al-center">
+                    <label class="font-bold">連携リセット</label><br>
+                    <label>{{RenkeiApp}}と連携ができない場合に使用します。</label><br>
+                    <label>{{RenkeiApp}}との連携を先に解除する必要があります。</label><br>
+                    <label>歩数の連携ができている方は使用しないでください。</label>
+                </div>
+                <div class="al-center w-100p">
+                    <button class="btn-color01 mb-10" ng-click="RenkeiReset()">連携リセット</button>
+                </div>
+            </div>
+        </div>
+        
+        <!--アカウント削除-->
+        <div id="" class="personal-frame mt-30">
+            <div id="ivite-input">
+                <div class="w-100p al-center">
+                    <label class="font-bold">アカウント削除</label><br>
+                    <div class="w-100p al-left">
+                        <label>アカウントを削除する場合は「アカウント削除」ボタンをタップしてください。</label><br>
+                        <label>一度削除されたアカウントは復元することはできません。</label><br>
+                        <label>削除される情報は以下の通りです。</label><br>
+                        <ul>
+                            <li>・ユーザの基本設定情報</li>
+                            <li>・ユーザの歩数情報</li>
+                            <li>・ユーザの体組成情報</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="al-center w-100p">
+                    <button class="btn-color04 mb-10 w-60p" ng-click="UserReset()">アカウント削除</button>
+                </div>
+            </div>
+        </div>
+
+
+      <!--レイアウト崩れ対処法-->
+    <div class="h-150"></div>
+    </div>
+  </ion-content>
+    <!--GoogleSignIn画面-->
+    <ion-content ng-show="reqAuthPop">
+        <div class="w-100p h-100p pos-abs top-0 body_color02 zindex-max al-center">
+            <!-- <img src="../img/mihama/home/app_title.png" class="w-100p bg-white" /> -->
+            <div class="mt-50">
+                <p class="font-bold">GoogleFitから歩数データを取得するために、Googleアカウントとの接続が必要です。</p>
+                <p class="font-bold">「Sign in with Google」ボタンをタップし、端末のGoogleアカウントと接続してください。</p>
+                <p class="font-bold">Googleアカウントとの接続が完了すると個人設定を登録できます。</p>
+                <div class="btn-googleSignIn" ng-click="promptInstallFit();"></div>
+                <!--
+      <div class="mt-10" ng-click="closeGoogleSignIn()" >
+      <a >スキップ</a>
+      </div>
+      -->
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

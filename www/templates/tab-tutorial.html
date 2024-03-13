@@ -1,0 +1,87 @@
+<ion-view view-title="利用方法">
+	<ion-content class="body_color02 al-center" ng-controller="TutorialCtrl">
+		<!--スライダーコンテナ-->
+		<div class="slider-container al-center">
+			<!--利用規約-->
+			<div class="slider-page">
+				<h3>利用規約</h3>
+				<ion-scroll class="slider-pre">
+          <iframe ng-src="{{kiyaku}}" class="w-100p h-100p"></iframe>
+				</ion-scroll>
+				<!--同意しない-->
+				<input type="button" class="button btn-color05" value="同意しない" ng-click="Disagree();">
+				<!--同意する-->
+				<input type="button" class="button btn-color01" value="同意する" ng-click="NextSlide(1);">
+			</div>
+			<!--GoogleFit/HealthCareについて-->
+			<div class="slider-page">
+				<h3>利用方法</h3>
+				<ion-scroll id="renkei_android" class="slider-pre">
+					<iframe src="{{tutorial1}}" class="w-100p h-100p"></iframe>
+				</ion-scroll>
+				<!--<input type="button" class="button btn-color05" value="前へ" ng-click="PrevSlide(0);">-->
+				<input type="button" class="button btn-color01" value="次へ" ng-click="NextSlide(2);">
+			</div>
+      <!--アプリの利用方法-->
+			<div class="slider-page">
+				<h3>利用方法</h3>
+				<ion-scroll id="renkei_android" class="slider-pre">
+					<iframe src="{{tutorial2}}" class="w-100p h-100p"></iframe>
+				</ion-scroll>
+				<input type="button" class="button btn-color05" value="前へ" ng-click="PrevSlide(1);">
+				<input type="button" class="button btn-color01" value="次へ" ng-click="NextSlide(3);">
+			</div>
+      
+			<!--新規/引継ぎ選択-->
+			<div class="slider-page">
+				<h3>ログイン</h3>
+
+                <p>生年月日を入力し、「ログイン」又は「引継ぎ」を選択してください。</p>
+
+                <div class="disp-inflex w-95p">
+                    <label class="item item-select w-50p h-50 pl-5 mt-5 border-l5">
+                    <select id="birth_y" required class="w-100p font-size15" ng-model="ymd.birth_y" ng-change="setDate()">
+                        <option ng-repeat="y in ddl_birthY" value="{{y}}" >{{y}}年</option>
+                    </select>
+                    </label>
+                    <label class="item item-select w-50p h-50 pl-5 mt-5">
+                    <select id="birth_m" required class="w-100p font-size15" ng-model="ymd.birth_m" ng-change="setDate()">
+                        <option ng-repeat="m in ddl_birthM" value="{{m}}" >{{m}}月</option>
+                    </select>
+                    </label>
+                    <label class="item item-select w-50p h-50 pl-5 mt-5 border-rr5">
+                    <select id="birth_d" required class="w-100p font-size15" ng-model="ymd.birth_d">
+                        <option ng-repeat="d in ddl_birthD" value="{{d}}" >{{d}}日</option>
+                    </select>
+                    </label>
+                </div>
+
+				<input type="button" class="button btn-color01" value="新規" ng-click="NewAccount();">
+				<p>初めてご利用の方はこちらをタップしてください</p>
+
+				<input type="button" class="button btn-color04" value="引継ぎ" ng-click="PopModelChange();">
+				<p>機種変更をした方はこちらをタップしてください</p>
+				<input type="button" class="button btn-color05" value="前へ" ng-click="PrevSlide(2);">
+			</div>
+		</div>
+		
+    <!--引継ぎ画面-->
+		<div id="pop-model-change-frame" class="pop-back">
+			<div class="pop">
+				<div class="pop-close">
+					<input class="pop-close-btn" type="button" ng-click="PopClose()">
+				</div>
+				<p class="font-bold">引継ぎ実行時に表示されたユーザID・暗証番号を入力してください。</p>
+				<div class="al-left ml-5">
+					<label>ユーザID</label>
+					<input type="number" id="user_id" class="w-90p border-gray border-r5"/>
+					<label>暗証番号(4ケタ)</label>
+					<input type="number" id="password"  class="w-90p border-gray border-r5"/>
+				</div>
+				<input type="button" id="btn-start" class="button btn-color01" value="引継ぎ" ng-click="ModelChange();"/>
+			</div>
+		</div>
+		<!--センタボタン張り出し考慮-->
+		<div class="footer-cover"></div>
+	</ion-content>
+</ion-view>

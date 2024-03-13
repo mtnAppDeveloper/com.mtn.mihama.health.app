@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_レイヤー_2" data-name="レイヤー 2" xmlns="http://www.w3.org/2000/svg" width="375" height="541" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 375 541">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: url(#_新規パターンスウォッチ_7);
+        opacity: .2;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+    <pattern id="_新規パターンスウォッチ_7" data-name="新規パターンスウォッチ 7" x="0" y="0" width="30" height="30" patternTransform="translate(-9819.88 -17.47) rotate(45) scale(.66)" patternUnits="userSpaceOnUse" viewBox="0 0 30 30">
+      <g>
+        <rect class="cls-3" width="30" height="30"/>
+        <rect class="cls-1" x="7.5" width="15" height="30"/>
+      </g>
+    </pattern>
+  </defs>
+  <g id="_バック" data-name="バック">
+    <rect class="cls-2" width="375" height="541"/>
+  </g>
+</svg>

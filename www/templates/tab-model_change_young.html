@@ -1,0 +1,67 @@
+<ion-view view-title="機種変更">
+    <ion-content ng-controller="ModelChangeCtrl" class="bg-backimg al-center webkit-app" has-bouncing="false">
+        <div class="w-95p h-95p pt-20">
+            <div class="w-90p bg-white border-r10 mb-20">
+    <!-- 若者用 -->
+    <!--機種変更登録-->
+		<div id="personal" class="personal-frame" class="mt-30">
+			<div id="ivite-input">
+				<div class="w-100p al-center font-size18 font-bold mt-10" >引継ぎ開始</div>
+        
+				<div class="h-20"></div>
+				<p class="color-grn">機種変更について</p>
+        <p>機種変更をすると以下の情報が引き継がれます。</p>
+        <label>・個人設定情報</label><br>
+        <label>・これまでの歩数情報</label><br>
+        <label>・チャレンジのクリア情報</label><br>
+        <label>・獲得ポイント</label><br>
+        <label>・グループ情報</label><br>
+        
+        <div class="h-20"></div>
+
+        <p class="color-grn">機種変更方法</p>
+        <p>(1).4ケタの暗証番号を入力してください。</p>
+        <p>(2).「機種変更実行」ボタンをタップします。</p>
+        <p>(3).新しい端末にアプリをインストールし、チュートリアル後に「機種変更」ボタンをタップします。</p>
+        <div class="h-10"></div>
+        <div class="group text-half">
+					<input type="number" id="password_reg" class="inputMaterial" required/>
+					<span class="highlight"></span><span class="bar input-bar"></span>
+					<label class="input-label">暗証番号を入力（4ケタ）</label>
+				</div>
+				<div class="al-center" style="width:100%;">
+					<button class="btn-color01 mb-10" ng-click="ModelChange();">機種変更実行</button>
+				</div>
+			</div>
+		</div>
+
+    <!--機種引継ぎ-->
+		<div id="personal" class="personal-frame" class="mt-30">
+			<div id="ivite-input">
+				<div class="w-100p al-center font-size18 font-bold mt-10" >引継ぎ実行</div>
+        
+				<div class="h-20"></div>
+				<p class="color-grn">引継ぎ</p>
+        <p>自身のユーザIDと機種変更時に登録したパスワードを入力してください。</p>
+
+        <div class="group text-half">
+					<input type="number" id="user_id" class="inputMaterial" required/>
+					<span class="highlight"></span><span class="bar input-bar"></span>
+					<label class="input-label">ユーザIDを入力</label>
+				</div>
+        <div class="group text-half">
+					<input type="number" id="password" class="inputMaterial" required/>
+					<span class="highlight"></span><span class="bar input-bar"></span>
+					<label class="input-label">暗証番号を入力（4ケタ）</label>
+				</div>
+				<div class="al-center" style="width:100%;">
+					<button class="btn-color01 mb-10" ng-click="Hikitsugi();">引継ぎ実行</button>
+				</div>
+			</div>
+		</div>
+
+            </div>
+        </div>
+        <div class="h-20"></div>
+    </ion-content>
+</ion-view>

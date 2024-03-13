@@ -1,0 +1,52 @@
+<ion-view view-title="お知らせ 詳細" ng-controller="NewsDetailCtrl">
+    <ion-content class="al-center" has-bouncing="false">
+        <div class="news-detail_date pt-10" ng-cloak>投稿日：{{news.add_date}}</div>
+        <div class="news-detail_date" ng-bind="'{{news.add_date}}'"></div>
+        <div class="news-detail_title al-left mb-10 ml-20" ng-cloak><label>{{news.title}}</label></div>
+        <div class="w-90p border-bottom-dot mb-10"></div>
+        <div class="news-detail_honbun al-left ml-20 mr-20" ng-bind-html="news.honbun"></div>
+
+
+        <!--URL情報-->
+        <div class="news-detail_url" ng-show="news.url && news.tag != 'アンケート'">
+            <p class="ml-20 mb-0">詳しくはこちら</p>
+            <div ng-click="invokeBrowser(news.url);">
+                <a href="" class="ml-20">{{news.url}}</a>
+            </div>
+        </div>
+
+        <!--活動に参加するボタン-->
+        <div class="" ng-if="news.kbn == 'group'">
+            <div class="news-detail_honbun al-left mt-20 ml-20">実施場所：{{news.place}}</div>
+            <div class="news-detail_honbun al-left mt-20 ml-20">日時　　：{{news.start_date}}</div>
+            <div ng-if="news.tag_id > 90" class="news-detail_honbun al-left mt-20 ml-20">定員　　：{{news.capacity}}人</div>
+        </div>
+        <!--活動に参加するボタン-->
+        <div id="active_join" class="" ng-if="news.kbn == 'group' && isAdd && isCertification">
+            <button class="btn-color01" ng-click="ActiveJoin()">活動に参加する</button>
+        </div>
+
+        <!--既に活動に参加している場合-->
+        <div id="active_join_disabled" class="" ng-if="news.kbn == 'group' && !isAdd && isCertification">
+            <button class="btn-color05" disabled>参加済みです</button>
+        </div>
+
+        <!--ポイント獲得用テスト-->
+        <!-- <div id="test" class="" ng-if="news.tag == '健康づくり活動（町）'">
+            <button class="btn-color01" ng-click="GivePoint(26)">コラム読了</button>
+        </div> -->
+
+        <!--コラム用ポイント獲得ボタン-->
+        <div id="column" class="" ng-if="news.tag == 'コラム'">
+            <button class="btn-color01" ng-click="GivePoint('25')">コラム読了</button>
+        </div>
+
+        <!--アンケート用回答ボタン-->
+        <div id="questionnaire" class="" ng-if="news.tag == 'アンケート'">
+            <button class="btn-color01" ng-click="GivePoint('26')" href="news.url" target="_blank">アンケート回答</button>
+        </div>
+
+        <!--センタボタン張り出し考慮-->
+        <div class="footer-cover"></div>
+    </ion-content>
+</ion-view>

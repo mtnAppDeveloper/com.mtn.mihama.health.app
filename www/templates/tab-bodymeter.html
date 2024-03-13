@@ -1,0 +1,63 @@
+<ion-view view-title="体組成連携">
+    <ion-content ng-controller="BodyMeterCtrl" class="w-100p al-center">
+        <!--バーコード-->
+        <div class=" bodymeter-background2">
+            <div class="frame-bodymeter">
+                <h4><b>体組成測定方法</b></h4>
+                <div class="ml-5 al-left w-80p font-size18 indent-1 mt-20"><b>
+                    <p class="mb-0">①体組成計の「測定開始」ボタンをタップします</p>
+                    <p class="mb-0">②体組成を測定します</p>
+                    <p class="mb-0">③測定完了後、QRコードが表示されます</p>
+                    <p class="mb-0">④下記「QRコード読み取り」ボタンをタップしてQRコードを読み取ります</p>
+                    <p class="mb-0">⑤読み取りが完了すると測定データが登録されます</p>
+                </div></b>
+                    <!-- QR -->
+                    <div>
+                        <img src="./img/bodymeter/bodymeter-btn-qr.svg" class="mt-20" ng-click="scanQr();">
+                    </div>
+                    <!-- 過去の記録 -->
+                    <div>
+                        <img src="./img/bodymeter/bodymeter-btn-pastrecord.svg" class="mt-20" ng-click="listMove();">
+                    </div>
+                    <!-- <input type="button" class="btn-color03 large" value="QRコード読み取り" ng-click="scanQr()" /> -->
+                    <!--
+			<div class="frame-card">
+				<div class="frame-card-header">
+					<p class="frame-card-header-lebel">ユーザID:{{personal.user_id}}</p>
+					<p class="frame-card-header-lebel">{{personal.name}} さん</p>
+				</div>
+				<div class="frame-card-body">
+					<div class="disp-barcode bcTarget">
+					</div>
+					<div>
+						<span>測定前にバーコードを読み込んでください</span>
+					</div>
+				</div>
+			</div>
+      -->
+                </div>
+                <!--前回の記録-->
+                <div class="item item-divider point-menu mt-20">
+                    <label><b>最新の測定結果</label></b><br>
+                    <label><b>(測定日:{{measurement_date}})</label></b>
+                    <!-- <input type="button" class="btn-color03" value="過去の記録へ" ng-click="listMove()" /> -->
+                </div>
+            </div>
+
+            <ion-list id="itemlist" class="al-left">
+                <ion-item class="" ng-repeat="meterResult in meterResults">
+                    <div class="w-70p al-left fl-left">
+                        <!--測定項目-->
+                        <h2 class="font-size19"> {{meterResult.header_name_ja}}</h2>
+                        <!--測定値-->
+                        <label class="font-size18"> {{meterResult.value}}{{meterResult.unit}}</label>
+                    </div>
+                    <!--判定-->
+                    <div class="w-30p al-center fl-left">
+                        <img ng-src="{{meterResult.level_icon}}" class="w-50" />
+                        <p> {{meterResult.level}}</p>
+                    </div>
+                </ion-item>
+            </ion-list>
+    </ion-content>
+</ion-view>

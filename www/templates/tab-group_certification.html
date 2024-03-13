@@ -1,0 +1,55 @@
+<ion-view view-title="本人確認" ng-controller="GroupCertCtrl">
+    <ion-content class="bg-backimg al-center" has-bouncing="false">
+        <div class="w-95p h-95p pt-20">
+            <div class="w-90p bg-white border-r10 mb-20">
+                <p class="font-bold">{{appName}}</p>
+                <p class="font-bold">ご本人確認</p>
+                <p class="font-bold mx-10">
+                    該当する団体がありました。<br>申込時の氏名、氏名かな、生年月日を入力し「確認」を押してください。
+                </p>
+
+                <div class="mt-10 mb-30">
+                    <p class="font-bold">団体名：{{group.name}}</p>
+                </div>
+            
+                <div class="group w-80p al-left">
+                    <input type="text" id="name" class="inputMaterial" value="" required/>
+                    <span class="highlight"></span><span class="bar input-bar"></span>
+                    <label class="input-label inputFocus">氏名</label>
+                </div>
+
+                <div class="group w-80p al-left">
+                    <input type="text" id="nameKana" class="inputMaterial" value="" required/>
+                    <span class="highlight"></span><span class="bar input-bar"></span>
+                    <label class="input-label inputFocus">氏名かな</label>
+                </div>
+
+                <div class="al-left w-80p">
+                    <label class="font-size16 ml-5 color-gray">生年月日</label>
+                </div>
+
+                <div class="disp-inflex w-95p">
+                    <label class="item item-select w-50p h-50 pl-5 mt-5 border-l5">
+                        <select id="birth_y" required class="w-100p font-size15" ng-model="ymd.birth_y" ng-change="setDate()">
+                            <option ng-repeat="y in ddl_birthY" value="{{y}}" >{{y}}年</option>
+                        </select>
+                    </label>
+                    <label class="item item-select w-50p h-50 pl-5 mt-5">
+                        <select id="birth_m" required class="w-100p font-size15" ng-model="ymd.birth_m" ng-change="setDate()">
+                            <option ng-repeat="m in ddl_birthM" value="{{m}}" >{{m}}月</option>
+                        </select>
+                    </label>
+                    <label class="item item-select w-50p h-50 pl-5 mt-5 border-rr5">
+                        <select id="birth_d" required class="w-100p font-size15" ng-model="ymd.birth_d">
+                            <option ng-repeat="d in ddl_birthD" value="{{d}}" >{{d}}日</option>
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <button class="btn-color01 mb-20" ng-click="certUser()">確認</button>
+                </div>
+            </div>
+        </div>
+        <div class="h-20"></div>
+    </ion-content>
+</ion-view>

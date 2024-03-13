@@ -1,0 +1,20 @@
+<ion-view view-title="活動実績情報">
+  <ion-content id="contentGroup" ng-controller="GroupActivityCtrl" class="body_color02 al-center" has-bouncing="false">
+
+    <div>
+      <div class="item item-divider group-menu">
+        <label id="kojin">認証済団体一覧</label>
+      </div>
+
+      <ion-list id="itemlist" class="al-left">
+        <ion-item class="item-icon-right" type="item-text-wrap" ng-repeat="group in groups" ng-click="moveActivityList({{group.group_id}});">
+          <h2>{{group.name}}</h2>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </ion-item>
+      </ion-list>
+    </div>
+    <input type="hidden" value="{{user_id}}" />
+    <!--センタボタン張り出し考慮-->
+    <div class="footer-cover"></div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,17 @@
+<ion-view view-title="団体に参加する" ng-controller="GroupCtrl">
+    <ion-content class="bg-backimg al-center" has-bouncing="false">
+        <div class="w-90p h-95p pt-20">
+            <div class="w-100p h-100p bg-white border-r10">
+                <p class="font-bold">{{appName}}</p>
+                <p class="font-bold mx-10 mt-10">{{groupJoinInfo}}</p>
+                <button class="btn-color01" ng-click="scanQR();">QRコード読み取り</button>
+                <div>
+                    <button class="btn-color03 mt-10" ng-click="modelChange();">機種変更の方はこちら</button>
+                </div>
+                <div>
+                    <button class="btn-color03 mt-10" ng-click="tutorial();">チュートリアルへ</button>
+                </div>
+            </div>
+            </dev>
+    </ion-content>
+</ion-view>

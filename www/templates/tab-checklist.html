@@ -1,0 +1,21 @@
+<ion-view view-title="基本チェックリスト">
+  <ion-content ng-controller="CheckListCtrl" class="body_color02 al-left" has-bouncing="false">
+    <!--チェックリスト一覧-->
+    <div id="checklist" class="personal-frame ofy-scroll">
+      <div class="w-100p h-50 al-center body_color05 color-white border-rt10" style="box-shadow: 0 0 3px gray;">
+        <p class="font-bold lh-50 mx-auto">基本チェックリスト</p>
+      </div>
+      <ion-list id="itemlist" class="item-text-wrap">
+        <ion-toggle id="{{checklist.checklist_id}}" ng-checked="checklist.flg == 1" ng-click="changeFlg(checklist);" ng-repeat="checklist in checklists" ng-model="enablePush.checked" class="font-size20 font-bold" name="checklists">{{checklist.description}}<br>{{checklist.biko}}</ion-toggle>
+      </ion-list>
+      <!--登録ボタン-->
+      <div class="al-center">
+        <button class="mt-20 mb-10 btn-color01" ng-click="regChecklist();">判定を見る</button>
+      </div>
+    </div>
+
+    <!--レイアウト崩れ対処法-->
+    <div class="h-150"></div>
+
+  </ion-content>
+</ion-view>

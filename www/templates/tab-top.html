@@ -1,0 +1,257 @@
+<ion-view class="font-bold" view-title="{{date_now}}" cache-view="false" ng-controller="TopCtrl">
+    <ion-content id="homeContent" class="al-center bg_base" no-bounce has-bouncing="false">
+
+        <!-- テキスト隠し用 -->
+        <div ng-hide="load_comp == true" class="bg-base"></div>
+
+        <!--メインフレーム-->
+        <div ng-show="over60 == true" class="w-100p h-100p ofy-scroll ofx-hidden of-hidden">
+
+            <!--ユーザ名-->
+            <div class="w-100p h-40 al-left bg-gray">
+                <p class="font-bold color-black al-center lh-50">{{personal.name}}</p>
+            </div>
+
+            <!--活動内容-->
+            <div class="bg-white w-100p h-25p zindex-max disp-inflex of-hidden">
+                <!--へしこちゃんさん-->
+                <div class="mt-10 al-right w-40p pos-rel">
+                    <!-- <img id="imgHeshiko" src="" class="pos-abs h-200 w-200" style="top:-10; left:-30"/> -->
+                    <img src="./img/top/heshiko-huyu.svg" class="pos-abs h-200 w-200" style="top:-10; left:-30"/>
+                </div>
+                <ion-scroll has-bouncing="false" class="h-70p w-70p mt-10">
+                    <div class="w-100p bg-white">
+                        <!-- <p class="mx-5">直近の活動予定({{activityCount}}件)</p> -->
+                        <!-- <div class="w-90p border-bottom-dot"></div> -->
+                    </div>
+                    <!--直近の活動-->
+                    <div class="w-100p h-65p al-center">
+                        <div class="w-100p border-bottom-dot">
+                        <p class="mb-5 ml-10 mt-20" ng-if="activityCount == 0" style="font-size:26px">直近の活動予定はありません</p>
+                        </div>
+                        <div class="w-100p al-left" ng-repeat="activity in activities">
+                            <label class="ml-20">{{activity.start_date}} {{activity.start_time}}</label>
+                            <p class="mb-5 ml-30">{{activity.title}}<label ng-if="activity.stamp_date != null" class="color-red font-bold">(済)</label></p>
+                            <div class="w-100p border-bottom-dot"></div>
+                        </div>
+                    </div>
+                </ion-scroll>
+            </div>
+
+            <!-- ボタン群 -->
+            <div class="h-70p">
+            <!--ポイントと歩数-->
+            <div class="mt-5">
+                <div class="disp-inflex">
+                    <!--現在のポイント-->
+                    <div ng-show="load_comp == true" class="al-left pos-rel">
+                        <img id="btn-point" src="" class="pos-rel" />
+                        <p class="pos-abs w-100p h-100p al-center" style="top:50;">現在のポイント</p>
+                        <h1 class="pos-abs w-100p h-100p al-center" style="top:38;">{{personal.point}}</h1>
+                        <p class="pos-abs w-100p h-100p al-center" style="top:120;">ポイント</p>
+                    </div>
+                    <!--今日の歩数-->
+                    <div ng-show="load_comp == true" class="al-left pos-rel">
+                        <img id="btn-hosuu" src="" class="pos-rel" />
+                        <p class="pos-abs w-100p h-100p al-center" style="top:50;">今日の歩数</p>
+                        <h1 class="pos-abs w-100p h-100p al-center" style="top:38;">{{step}}</h1>
+                        <p class="pos-abs w-100p h-100p al-center" style="top:120;">歩</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--スタンプ取得・引換券利用・体組成連携-->
+            <div class="">
+                <div class="disp-inflex">
+                    <!--スタンプ取得-->
+                    <div ng-show="load_comp == true" class="al-left pos-rel" ng-click="scanQR();">
+                        <img id="btn-stamp" src="" class="pos-rel" />
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:55;">ポイント</p>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:80;">取得</p>
+                        <p class="pos-abs w-100p h-100p al-center font-color-gray" style="top:110;">QRコード</p>
+                    </div>
+                    <!--引換券利用-->
+                    <div ng-show="load_comp == true" class="al-center pos-rel" ng-click="MoveMenu('#/tab/coupon/');">
+                        <img id="btn-coupon" src="" class="pos-rel"  />
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:55;">クーポン</p>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:80;">利用</p>
+                        <p class="pos-abs w-100p h-100p al-center font-color-gray font-size17" style="top:110;">クーポン一覧</p>
+                    </div>
+                    <!--体組成計連携-->
+                    <div ng-show="load_comp == true" class="al-right pos-rel" ng-click="moveBodyMeter();">
+                        <img id="btn-taisosei" src="" class="pos-rel"/>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:55;">体組成</p>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:80;">連携</p>
+                        <p class="pos-abs w-100p h-100p al-center font-color-gray" style="top:110;">過去の記録</p>
+                    </div>
+                </div>
+            </div>
+                <!--ポイント枠-->
+                <!-- <div class="w-95p bg-white disp-inflex border-r10 mt-10 mb-20"> -->
+                    <!--獲得履歴-->
+                    <!-- <div class="al-center mt-10"> -->
+                        <!-- <p class="font-bold ml-10 mb-5">現在のポイント</p> -->
+                        <!-- <button class="btn-top01 w-90p mb-10" ng-click="movePoint();">獲得履歴</button> -->
+                    <!-- </div> -->
+                    <!--ポイント表示-->
+                    <!-- <div class="mx-auto al-left mt-5 "> -->
+                        <!-- <h1 class="font-bold mt-20">{{personal.point}}<label class="font-bold ml-5">ポイント</label></h1> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            <!-- </div> -->
+
+        <!-- </div> -->
+            </div>
+
+        <!--活動選択ポップアップ-->
+        <div id="qr-activity-pop-frame" class="pop-back">
+            <div class="pop w-90p">
+                <div class="pop-close">
+                    <p>活動を選択</p>
+                    <input class="pop-close-btn" type="button" ng-click="popClose()">
+                </div>
+                <p>活動が見つかりました<br>実施した活動を選択してください</p>
+                <ion-list id="itemlist" class="item-text-wrap">
+                    <ion-item class="item item-icon-right" ng-repeat="townActivity in townActivities" ng-click="popSelectActivity({{townActivity.activity_id}});">
+                        <h2>{{townActivity.title}}</h2>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
+        </div>
+
+        <!--若者向け-->
+        <div ng-show="over60 == false" class="w-100p h-100p ofy-scroll ofx-hidden of-hidden bg-young-base">
+
+            <!--ユーザ名-->
+            <div class="w-100p h-40 al-left bg-gray">
+                <p class="font-bold color-black al-center lh-50">{{personal.name}}</p>
+            </div>
+
+            <!--活動内容-->
+            <div class="bg-white w-100p h-25p zindex-max disp-inflex of-hidden w-in">
+                <!--へしこちゃんさん-->
+                <div class="mt-10 al-right w-40p pos-rel">
+                    <!-- <img id="imgHeshiko" src="" class="pos-abs h-200 w-200" style="top:-10; left:-30"/> -->
+                    <img src="./img/top/young/heshiko-young.svg" class="pos-abs h-150 w-200" style="top:-10; left:-30"/>
+                </div>
+                <ion-scroll has-bouncing="false" class="h-70p w-70p mt-10">
+                    <div class="w-100p bg-white">
+                        <!-- <p class="mx-5">直近の活動予定({{activityCount}}件)</p> -->
+                        <!-- <div class="w-90p border-bottom-dot"></div> -->
+                    </div>
+                    <!--直近の活動-->
+                    <div class="w-100p h-65p al-center">
+                        <div class="w-100p border-bottom-dot" ng-if="activityCount == 0">
+                        <p class="mb-5 ml-10 mt-20" ng-if="activityCount == 0" style="font-size:26px">直近の活動予定はありません</p>
+                        </div>
+                        <div class="w-100p al-left" ng-repeat="activity in activities">
+                            <label class="ml-20">{{activity.start_date}} {{activity.start_time}}</label>
+                            <p class="mb-5 ml-30">{{activity.title}}<label ng-if="activity.stamp_date != null" class="color-red font-bold">(済)</label></p>
+                            <div class="w-100p border-bottom-dot"></div>
+                        </div>
+                    </div>
+                </ion-scroll>
+            </div>
+
+            <!-- ボタン群 -->
+            <div class="h-70p">
+            <!--ポイントと歩数-->
+            <div class="mt-5">
+                <div class="disp-inflex">
+                    <!--現在のポイント-->
+                    <div class="al-left pos-rel">
+                        <img src="./img/top/young/btn-point-young.svg" class="pos-rel" />
+                        <p class="pos-abs w-100p h-100p al-center" style="top:50;">現在のポイント</p>
+                        <h1 class="pos-abs w-100p h-100p al-center" style="top:38;">{{personal.point}}</h1>
+                        <p class="pos-abs w-100p h-100p al-center" style="top:120;">ポイント</p>
+                    </div>
+                    <!--今日の歩数-->
+                    <div class="al-left pos-rel">
+                        <img src="./img/top/young/btn-hosuu-young.svg" class="pos-rel" />
+                        <p class="pos-abs w-100p h-100p al-center" style="top:50;">今日の歩数</p>
+                        <h1 class="pos-abs w-100p h-100p al-center" style="top:38;">{{step}}</h1>
+                        <p class="pos-abs w-100p h-100p al-center" style="top:120;">歩</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--スタンプ取得・引換券利用・体組成連携-->
+            <div class="">
+                <div class="disp-inflex">
+                    <!--スタンプ取得-->
+                    <div class="al-left pos-rel" ng-click="scanQR();">
+                        <img src="./img/top/young/btn-qr-young.svg" class="pos-rel"/>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:55;">ポイント</p>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:80;">取得</p>
+                        <p class="pos-abs w-100p h-100p al-center font-color-gray" style="top:110;">QRコード</p>
+                    </div>
+                    <!--引換券利用-->
+                    <div class="al-center pos-rel" ng-click="MoveMenu('#/tab/coupon/');">
+                        <img src="./img/top/young/btn-coupon-young.svg" class="pos-rel"  />
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:55;">クーポン</p>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:80;">利用</p>
+                        <p class="pos-abs w-100p h-100p al-center font-color-gray font-size17" style="top:110;">クーポン一覧</p>
+                    </div>
+                    <!--体組成計連携-->
+                    <div class="al-right pos-rel" ng-click="moveBodyMeter();">
+                        <img src="./img/top/young/btn-taisosei-young.svg" class="pos-rel"/>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:55;">体組成</p>
+                        <p class="pos-abs w-100p h-100p al-center font-bold font-size24" style="top:80;">連携</p>
+                        <p class="pos-abs w-100p h-100p al-center font-color-gray" style="top:110;">過去の記録</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--活動選択ポップアップ-->
+        <div id="qr-activity-pop-frame1" class="pop-back">
+            <div class="pop w-90p">
+                <div class="pop-close">
+                    <p>活動を選択</p>
+                    <input class="pop-close-btn" type="button" ng-click="popClose()">
+                </div>
+                <p>活動が見つかりました<br>実施した活動を選択してください</p>
+                <ion-list id="itemlist" class="item-text-wrap">
+                    <ion-item class="item item-icon-right" ng-repeat="townActivity in townActivities" ng-click="popSelectActivity({{townActivity.activity_id}});">
+                        <h2>{{townActivity.title}}</h2>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
+    </div>
+            <!--QRボタンとへしこ-->
+            <!-- <div class="mt-5">
+                <div class="w-100p disp-inflex"> -->
+                    <!--QR読み取り(カメラ起動)-->
+                    <!-- <div class="al-left ml-40 w-150 h-150">
+                        <img src="./img/tabs/qr_button.png" class="w-100p h-100p" ng-click="scanQR();" />
+                    </div> -->
+                    <!--へしこちゃんさん-->
+                    <!-- <div class="ml-10 al-right w-150 h-150">
+                        <img id="imgHeshiko" src="" class="h-100p w-100p" />
+                    </div>
+                </div> -->
+
+                <!--ポイント枠-->
+                <!-- <div class="w-95p bg-white disp-inflex border-r10 mt-10 mb-20"> -->
+                    <!--獲得履歴-->
+                    <!-- <div class="al-center mt-10">
+                        <p class="font-bold ml-10 mb-5">現在のポイント</p>
+                        <button class="btn-top01 w-90p mb-10" ng-click="movePoint();">獲得履歴</button>
+                    </div> -->
+                    <!--ポイント表示-->
+                    <!-- <div class="mx-auto al-left mt-5 ">
+                        <h1 class="font-bold mt-20">{{personal.point}}<label class="font-bold ml-5">ポイント</label></h1>
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+
+    </ion-content>
+</ion-view>
